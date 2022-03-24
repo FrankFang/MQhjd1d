@@ -61,6 +61,8 @@ test:
 #
 production:
   <<: *default
-  database: mangosteen_1_production
-  username: mangosteen_1
-  password: <%= ENV["MANGOSTEEN_1_DATABASE_PASSWORD"] %>
+  database: mangosteen_production
+  username: mangosteen
+  password: <%= ENV["DB_PASSWORD"] %>
+  host: <%= ENV["DB_HOST"] %>
+
