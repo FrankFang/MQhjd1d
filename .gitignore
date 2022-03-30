@@ -27,5 +27,7 @@
 
 # Ignore master key for decrypting credentials and more.
 /config/master.key
+/vendor/cache
+/tmp/*.gz
 
 /config/credentials/production.key
