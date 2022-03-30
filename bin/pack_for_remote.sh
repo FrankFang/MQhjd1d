@@ -3,7 +3,8 @@ user=mangosteen
 ip=121.196.236.94
 
 time=$(date +'%Y%m%d-%H%M%S')
-dist=tmp/mangosteen-$time.tar.gz
+cache_dir=tmp/deploy_cache
+dist=$cache_dir/mangosteen-$time.tar.gz
 current_dir=$(dirname $0)
 deploy_dir=/home/$user/deploys/$time
 gemfile=$current_dir/../Gemfile
@@ -18,15 +19,16 @@ function title {
   echo 
 }
 
-yes | rm tmp/mangosteen-*.tar.gz; 
 
 title '打包源代码为压缩文件'
+mkdir $cache_dir
 bundle cache
-tar --exclude="tmp/cache/*" -czv -f $dist *
+tar --exclude="tmp/cache/*" --exclude="tmp/deploy_cache/*" -czv -f $dist *
 title '创建远程目录'
 ssh $user@$ip "mkdir -p $deploy_dir/vendor"
 title '上传压缩文件'
 scp $dist $user@$ip:$deploy_dir/
+yes | rm $dist
 scp $gemfile $user@$ip:$deploy_dir/
 scp $gemfile_lock $user@$ip:$deploy_dir/
 scp -r $vendor_cache_dir $user@$ip:$deploy_dir/vendor/
