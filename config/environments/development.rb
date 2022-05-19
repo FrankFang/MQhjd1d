@@ -34,9 +34,21 @@ Rails.application.configure do
   config.active_storage.service = :local
 
   # Don't care if the mailer can't send.
-  config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.raise_delivery_errors = true
 
   config.action_mailer.perform_caching = false
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    address:              'smtp.qq.com',
+    port:                 587,
+    domain:               'smtp.qq.com',
+    user_name:            'fangyinghang@foxmail.com',
+    password:             Rails.application.credentials.email_password,
+    authentication:       'plain',
+    enable_starttls_auto: true,
+    open_timeout:         10,
+    read_timeout:         10
+  }
 
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
