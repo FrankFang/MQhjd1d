@@ -136,8 +136,9 @@ table th, table td {
           <h3>Request</h3>
 
             <h4>Headers</h4>
-            <pre class="request headers">Host: example.org
-Content-Type: application/x-www-form-urlencoded
+            <pre class="request headers">Accept: application/json
+Content-Type: application/json
+Host: example.org
 Cookie: </pre>
 
           <h4>Route</h4>
@@ -145,7 +146,7 @@ Cookie: </pre>
 
 
             <h4>Body</h4>
-            <pre class="request body">email=1%40qq.com</pre>
+            <pre class="request body">{"email":"1@qq.com"}</pre>
 
 
             <h3>Response</h3>
@@ -156,16 +157,17 @@ X-Content-Type-Options: nosniff
 X-Download-Options: noopen
 X-Permitted-Cross-Domain-Policies: none
 Referrer-Policy: strict-origin-when-cross-origin
-Content-Type: application/json; charset=utf-8
-ETag: W/&quot;f575884173536bd5d28c6b2c979d62e6&quot;
+Content-Type: text/plain; charset=utf-8
+Vary: Accept
+ETag: W/&quot;36a9e7f1c95b82ffb99743e0c5c4ce95&quot;
 Cache-Control: max-age=0, private, must-revalidate
-X-Request-Id: 03f92d04-bf5c-4ce0-a0cb-86e491c58cb8
-X-Runtime: 0.030018
-Content-Length: 17</pre>
+X-Request-Id: 6fe0f245-4338-491c-b529-2fd3e5439487
+X-Runtime: 0.036558
+Content-Length: 1</pre>
             <h4>Status</h4>
             <pre class="response status">200 OK</pre>
               <h4>Body</h4>
-              <pre class="response body">[binary data]</pre>
+              <pre class="response body"> </pre>
       </div>
     </div>
   </body>

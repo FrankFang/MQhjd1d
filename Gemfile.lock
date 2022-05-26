@@ -1,3 +1,11 @@
+PATH
+  remote: vendor/rspec_api_documentation
+  specs:
+    rspec_api_documentation (6.1.0)
+      activesupport (>= 3.0.0)
+      mustache (~> 1.0, >= 0.99.4)
+      rspec (~> 3.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -183,10 +191,6 @@ GEM
       rspec-mocks (~> 3.10)
       rspec-support (~> 3.10)
     rspec-support (3.11.0)
-    rspec_api_documentation (6.1.0)
-      activesupport (>= 3.0.0)
-      mustache (~> 1.0, >= 0.99.4)
-      rspec (~> 3.0)
     strscan (3.0.1)
     thor (1.2.1)
     timeout (0.2.0)
@@ -208,7 +212,7 @@ DEPENDENCIES
   puma (~> 5.0)
   rails (~> 7.0.2, >= 7.0.2.3)
   rspec-rails (~> 5.0.0)
-  rspec_api_documentation
+  rspec_api_documentation!
   tzinfo-data
 
 RUBY VERSION
