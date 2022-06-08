@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>账目 API</title>
+    <meta charset="utf-8">
+    <style>
+      
+body {
+  font-family: Helvetica,Arial,sans-serif;
+  font-size: 13px;
+  font-weight: normal;
+  line-height: 18px;
+  color: #404040;
+}
+
+.container {
+  width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+  zoom: 1;
+}
+
+pre {
+  background-color: #f5f5f5;
+  display: block;
+  padding: 8.5px;
+  margin: 0 0 18px;
+  line-height: 18px;
+  font-size: 12px;
+  border: 1px solid #ccc;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  white-space: pre;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+td.required .name:after {
+  float: right;
+  content: "required";
+  font-weight: normal;
+  color: #F08080;
+}
+
+a{
+  color: #0069d6;
+  text-decoration: none;
+  line-height: inherit;
+  font-weight: inherit;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: bold;
+  color: #404040;
+}
+
+h1 {
+  margin-bottom: 18px;
+  font-size: 30px;
+  line-height: 36px;
+}
+h2 {
+  font-size: 24px;
+  line-height: 36px;
+}
+h3{
+  font-size: 18px;
+  line-height: 36px;
+}
+h4 {
+  font-size: 16px;
+  line-height: 36px;
+}
+
+table{
+  width: 100%;
+  margin-bottom: 18px;
+  padding: 0;
+  border-collapse: separate;
+  font-size: 13px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  border-spacing: 0;
+  border: 1px solid #ddd;
+}
+
+table th {
+  padding-top: 9px;
+  font-weight: bold;
+  vertical-align: middle;
+  border-bottom: 1px solid #ddd;
+}
+table th+th, table td+td {
+  border-left: 1px solid #ddd;
+}
+table th, table td {
+  padding: 10px 10px 9px;
+  line-height: 18px;
+  text-align: left;
+}
+
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>账目 API</h1>
+
+      <div class="article">
+        <h2>获取账目</h2>
+        <h3>GET /api/v1/items</h3>
+
+          <h3>Parameters</h3>
+          <table class="parameters table table-striped table-bordered table-condensed">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                    <span class="name">page</span>
+                </td>
+                <td>
+                  <span class="description">页码</span>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                    <span class="name">created_after</span>
+                </td>
+                <td>
+                  <span class="description">创建时间起点（筛选条件）</span>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                    <span class="name">created_before</span>
+                </td>
+                <td>
+                  <span class="description">创建时间终点（筛选条件）</span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <h3>Response Fields</h3>
+          <table class="response-fields table table-striped table-bordered table-condensed">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                    <span class="name">resources[id]</span>
+                </td>
+                <td>
+                  <span class="description">ID</span>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                    <span class="name">resources[amount]</span>
+                </td>
+                <td>
+                  <span class="description">金额（单位：分）</span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <h3>Request</h3>
+
+            <h4>Headers</h4>
+            <pre class="request headers">Accept: application/json
+Content-Type: application/json
+Host: example.org
+Cookie: </pre>
+
+          <h4>Route</h4>
+          <pre class="request route highlight">GET /api/v1/items?created_after=2020-10-10&amp;created_before=2020-11-11</pre>
+
+            <h4>Query Parameters</h4>
+            <pre class="request query_parameters highlight">created_after: 2020-10-10
+created_before: 2020-11-11</pre>
+
+
+
+            <h3>Response</h3>
+              <h4>Headers</h4>
+              <pre class="response headers">X-Frame-Options: SAMEORIGIN
+X-XSS-Protection: 0
+X-Content-Type-Options: nosniff
+X-Download-Options: noopen
+X-Permitted-Cross-Domain-Policies: none
+Referrer-Policy: strict-origin-when-cross-origin
+Content-Type: application/json; charset=utf-8
+Vary: Accept
+ETag: W/&quot;8a446e366d07e6e3c394d4928fdfc953&quot;
+Cache-Control: max-age=0, private, must-revalidate
+X-Request-Id: 66d7b998-140b-42a3-9f8c-1086b56aff99
+X-Runtime: 0.018512
+Content-Length: 1703</pre>
+            <h4>Status</h4>
+            <pre class="response status">200 OK</pre>
+              <h4>Body</h4>
+              <pre class="response body">{
+  &quot;resources&quot;: [
+    {
+      &quot;id&quot;: 1060,
+      &quot;user_id&quot;: null,
+      &quot;amount&quot;: 100,
+      &quot;note&quot;: null,
+      &quot;tags_id&quot;: null,
+      &quot;happen_at&quot;: null,
+      &quot;created_at&quot;: &quot;2020-10-30T00:00:00.000Z&quot;,
+      &quot;updated_at&quot;: &quot;2022-06-08T13:55:12.398Z&quot;
+    },
+    {
+      &quot;id&quot;: 1061,
+      &quot;user_id&quot;: null,
+      &quot;amount&quot;: 100,
+      &quot;note&quot;: null,
+      &quot;tags_id&quot;: null,
+      &quot;happen_at&quot;: null,
+      &quot;created_at&quot;: &quot;2020-10-30T00:00:00.000Z&quot;,
+      &quot;updated_at&quot;: &quot;2022-06-08T13:55:12.400Z&quot;
+    },
+    {
+      &quot;id&quot;: 1062,
+      &quot;user_id&quot;: null,
+      &quot;amount&quot;: 100,
+      &quot;note&quot;: null,
+      &quot;tags_id&quot;: null,
+      &quot;happen_at&quot;: null,
+      &quot;created_at&quot;: &quot;2020-10-30T00:00:00.000Z&quot;,
+      &quot;updated_at&quot;: &quot;2022-06-08T13:55:12.401Z&quot;
+    },
+    {
+      &quot;id&quot;: 1063,
+      &quot;user_id&quot;: null,
+      &quot;amount&quot;: 100,
+      &quot;note&quot;: null,
+      &quot;tags_id&quot;: null,
+      &quot;happen_at&quot;: null,
+      &quot;created_at&quot;: &quot;2020-10-30T00:00:00.000Z&quot;,
+      &quot;updated_at&quot;: &quot;2022-06-08T13:55:12.403Z&quot;
+    },
+    {
+      &quot;id&quot;: 1064,
+      &quot;user_id&quot;: null,
+      &quot;amount&quot;: 100,
+      &quot;note&quot;: null,
+      &quot;tags_id&quot;: null,
+      &quot;happen_at&quot;: null,
+      &quot;created_at&quot;: &quot;2020-10-30T00:00:00.000Z&quot;,
+      &quot;updated_at&quot;: &quot;2022-06-08T13:55:12.404Z&quot;
+    },
+    {
+      &quot;id&quot;: 1065,
+      &quot;user_id&quot;: null,
+      &quot;amount&quot;: 100,
+      &quot;note&quot;: null,
+      &quot;tags_id&quot;: null,
+      &quot;happen_at&quot;: null,
+      &quot;created_at&quot;: &quot;2020-10-30T00:00:00.000Z&quot;,
+      &quot;updated_at&quot;: &quot;2022-06-08T13:55:12.406Z&quot;
+    },
+    {
+      &quot;id&quot;: 1066,
+      &quot;user_id&quot;: null,
+      &quot;amount&quot;: 100,
+      &quot;note&quot;: null,
+      &quot;tags_id&quot;: null,
+      &quot;happen_at&quot;: null,
+      &quot;created_at&quot;: &quot;2020-10-30T00:00:00.000Z&quot;,
+      &quot;updated_at&quot;: &quot;2022-06-08T13:55:12.407Z&quot;
+    },
+    {
+      &quot;id&quot;: 1067,
+      &quot;user_id&quot;: null,
+      &quot;amount&quot;: 100,
+      &quot;note&quot;: null,
+      &quot;tags_id&quot;: null,
+      &quot;happen_at&quot;: null,
+      &quot;created_at&quot;: &quot;2020-10-30T00:00:00.000Z&quot;,
+      &quot;updated_at&quot;: &quot;2022-06-08T13:55:12.409Z&quot;
+    },
+    {
+      &quot;id&quot;: 1068,
+      &quot;user_id&quot;: null,
+      &quot;amount&quot;: 100,
+      &quot;note&quot;: null,
+      &quot;tags_id&quot;: null,
+      &quot;happen_at&quot;: null,
+      &quot;created_at&quot;: &quot;2020-10-30T00:00:00.000Z&quot;,
+      &quot;updated_at&quot;: &quot;2022-06-08T13:55:12.410Z&quot;
+    },
+    {
+      &quot;id&quot;: 1069,
+      &quot;user_id&quot;: null,
+      &quot;amount&quot;: 100,
+      &quot;note&quot;: null,
+      &quot;tags_id&quot;: null,
+      &quot;happen_at&quot;: null,
+      &quot;created_at&quot;: &quot;2020-10-30T00:00:00.000Z&quot;,
+      &quot;updated_at&quot;: &quot;2022-06-08T13:55:12.412Z&quot;
+    }
+  ],
+  &quot;pager&quot;: {
+    &quot;page&quot;: null,
+    &quot;per_page&quot;: 100,
+    &quot;count&quot;: 11
+  }
+}</pre>
+      </div>
+    </div>
+  </body>
+</html>

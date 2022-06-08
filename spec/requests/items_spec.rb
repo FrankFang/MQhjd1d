@@ -33,6 +33,24 @@ RSpec.describe "Items", type: :request do
       expect(json['resources'].size).to eq 1
       expect(json['resources'][0]['id']).to eq item1.id
     end
+    it "按时间筛选（边界条件2）" do
+      item1 = Item.create amount: 100, created_at: '2018-01-01'
+      item2 = Item.create amount: 100, created_at: '2017-01-01'
+      get '/api/v1/items?created_after=2018-01-01'
+      expect(response).to have_http_status 200
+      json = JSON.parse(response.body)
+      expect(json['resources'].size).to eq 1
+      expect(json['resources'][0]['id']).to eq item1.id
+    end
+    it "按时间筛选（边界条件3）" do
+      item1 = Item.create amount: 100, created_at: '2018-01-01'
+      item2 = Item.create amount: 100, created_at: '2019-01-01'
+      get '/api/v1/items?created_before=2018-01-02'
+      expect(response).to have_http_status 200
+      json = JSON.parse(response.body)
+      expect(json['resources'].size).to eq 1
+      expect(json['resources'][0]['id']).to eq item1.id
+    end
   end
   describe "create" do
     it "can create an item" do 
