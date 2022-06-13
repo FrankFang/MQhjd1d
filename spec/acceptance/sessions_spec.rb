@@ -9,7 +9,6 @@ resource "会话" do
     let(:email) { '1@qq.com' }
     let(:code) { '123456' }
     example "登录" do
-      User.create email: email
       do_request
       expect(status).to eq 200
       json = JSON.parse response_body
