@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>API Documentation</title>
-  <meta charset="utf-8">
-  <style>
-    
+  <head>
+    <title>标签 API</title>
+    <meta charset="utf-8">
+    <style>
+      
 body {
   font-family: Helvetica,Arial,sans-serif;
   font-size: 13px;
@@ -39,7 +39,7 @@ pre {
 
 td.required .name:after {
   float: right;
-  content: &quot;required&quot;;
+  content: "required";
   font-weight: normal;
   color: #F08080;
 }
@@ -102,57 +102,49 @@ table th, table td {
   text-align: left;
 }
 
-  </style>
-</head>
-<body>
-<div class="container">
-  <h1>API Documentation</h1>
-  
-  <div class="article">
-    <h2>会话</h2>
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>标签 API</h1>
 
-    <ul>
-      <li>
-        <a href="会话/登录.html">登录</a>
-      </li>
-    </ul>
-  </div>
-  <div class="article">
-    <h2>标签</h2>
+      <div class="article">
+        <h2>删除标签</h2>
+        <h3>DELETE /api/v1/tags/:id</h3>
 
-    <ul>
-      <li>
-        <a href="标签/修改标签.html">修改标签</a>
-      </li>
-      <li>
-        <a href="标签/创建标签.html">创建标签</a>
-      </li>
-      <li>
-        <a href="标签/删除标签.html">删除标签</a>
-      </li>
-      <li>
-        <a href="标签/获取标签.html">获取标签</a>
-      </li>
-    </ul>
-  </div>
-  <div class="article">
-    <h2>账目</h2>
 
-    <ul>
-      <li>
-        <a href="账目/获取账目.html">获取账目</a>
-      </li>
-    </ul>
-  </div>
-  <div class="article">
-    <h2>验证码</h2>
 
-    <ul>
-      <li>
-        <a href="验证码/请求发送验证码.html">请求发送验证码</a>
-      </li>
-    </ul>
-  </div>
-</div>
-</body>
+          <h3>Request</h3>
+
+            <h4>Headers</h4>
+            <pre class="request headers">Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjo3OSwiZXhwIjoxNjU1MjI4MjY5fQ.a4QpGqdlTU9k2kj2dYdSSltAqItdd53uZo6WwYwYmgM
+Accept: application/json
+Content-Type: application/json
+Host: example.org
+Cookie: </pre>
+
+          <h4>Route</h4>
+          <pre class="request route highlight">DELETE /api/v1/tags/239</pre>
+
+
+
+
+            <h3>Response</h3>
+              <h4>Headers</h4>
+              <pre class="response headers">X-Frame-Options: SAMEORIGIN
+X-XSS-Protection: 0
+X-Content-Type-Options: nosniff
+X-Download-Options: noopen
+X-Permitted-Cross-Domain-Policies: none
+Referrer-Policy: strict-origin-when-cross-origin
+Content-Type: application/json
+Cache-Control: no-cache
+X-Request-Id: 1b8f46e0-b7f2-49ba-8155-a4b5b4670844
+X-Runtime: 0.004076
+Content-Length: 0</pre>
+            <h4>Status</h4>
+            <pre class="response status">200 OK</pre>
+      </div>
+    </div>
+  </body>
 </html>
