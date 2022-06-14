@@ -51,4 +51,31 @@ RSpec.describe "Api::V1::Tags", type: :request do
       expect(json['errors']['sign'][0]).to eq "can't be blank"
     end
   end
+
+  describe '更新标签' do
+    it '未登录修改标签' do
+      user = User.create email: '1@qq.com'
+      tag = Tag.create name: 'x', sign: 'x', user_id: user.id
+      patch "/api/v1/tags/#{tag.id}", params: {name: 'y', sign: 'y'}
+      expect(response).to have_http_status(401)
+    end
+    it '登录后修改标签' do
+      user = User.create email: '1@qq.com'
+      tag = Tag.create name: 'x', sign: 'x', user_id: user.id
+      patch "/api/v1/tags/#{tag.id}", params: {name: 'y', sign: 'y'}, headers: user.generate_auth_header
+      expect(response).to have_http_status(200)
+      json = JSON.parse response.body
+      expect(json['resource']['name']).to eq 'y'
+      expect(json['resource']['sign']).to eq 'y'
+    end
+    it '登录后部分修改标签' do
+      user = User.create email: '1@qq.com'
+      tag = Tag.create name: 'x', sign: 'x', user_id: user.id
+      patch "/api/v1/tags/#{tag.id}", params: {name: 'y'}, headers: user.generate_auth_header
+      expect(response).to have_http_status(200)
+      json = JSON.parse response.body
+      expect(json['resource']['name']).to eq 'y'
+      expect(json['resource']['sign']).to eq 'x'
+    end
+  end
 end
