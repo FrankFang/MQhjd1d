@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>会话 API</title>
+    <title>账目 API</title>
     <meta charset="utf-8">
     <style>
       
@@ -106,11 +106,11 @@ table th, table td {
   </head>
   <body>
     <div class="container">
-      <h1>会话 API</h1>
+      <h1>账目 API</h1>
 
       <div class="article">
-        <h2>登录</h2>
-        <h3>POST /api/v1/session</h3>
+        <h2>创建账目</h2>
+        <h3>POST /api/v1/items</h3>
 
           <h3>Parameters</h3>
           <table class="parameters table table-striped table-bordered table-condensed">
@@ -123,18 +123,34 @@ table th, table td {
             <tbody>
               <tr>
                 <td class="required">
-                    <span class="name">email</span>
+                    <span class="name">amount</span>
                 </td>
                 <td>
-                  <span class="description">邮箱</span>
+                  <span class="description">金额（单位：分）</span>
                 </td>
               </tr>
               <tr>
                 <td class="required">
-                    <span class="name">code</span>
+                    <span class="name">kind</span>
                 </td>
                 <td>
-                  <span class="description">验证码</span>
+                  <span class="description">类型</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="required">
+                    <span class="name">happen_at</span>
+                </td>
+                <td>
+                  <span class="description">发生时间</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="required">
+                    <span class="name">tags_id</span>
+                </td>
+                <td>
+                  <span class="description">标签列表（只传ID）</span>
                 </td>
               </tr>
             </tbody>
@@ -151,10 +167,42 @@ table th, table td {
             <tbody>
               <tr>
                 <td>
-                    <span class="name">jwt</span>
+                    <span class="name">resource[id]</span>
                 </td>
                 <td>
-                  <span class="description">用于验证用户身份的 token</span>
+                  <span class="description">Resource</span>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                    <span class="name">resource[amount]</span>
+                </td>
+                <td>
+                  <span class="description">Resource amount</span>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                    <span class="name">resource[kind]</span>
+                </td>
+                <td>
+                  <span class="description">Resource kind</span>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                    <span class="name">resource[happen_at]</span>
+                </td>
+                <td>
+                  <span class="description">Resource happen at</span>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                    <span class="name">resource[tags_id]</span>
+                </td>
+                <td>
+                  <span class="description">Resource tags</span>
                 </td>
               </tr>
             </tbody>
@@ -163,17 +211,18 @@ table th, table td {
           <h3>Request</h3>
 
             <h4>Headers</h4>
-            <pre class="request headers">Accept: application/json
+            <pre class="request headers">Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxMTQsImV4cCI6MTY1NTMxNDIzMn0.UTUb2bY5_29QRzDwAHi2kRj5JdeRbgQ3ncRajx64wYU
+Accept: application/json
 Content-Type: application/json
 Host: example.org
 Cookie: </pre>
 
           <h4>Route</h4>
-          <pre class="request route highlight">POST /api/v1/session</pre>
+          <pre class="request route highlight">POST /api/v1/items</pre>
 
 
             <h4>Body</h4>
-            <pre class="request body">{"email":"1@qq.com","code":"123456"}</pre>
+            <pre class="request body">{"amount":9900,"kind":"expenses","happen_at":"2020-10-30T00:00:00+08:00","tags_id":[151,152]}</pre>
 
 
             <h3>Response</h3>
@@ -186,16 +235,29 @@ X-Permitted-Cross-Domain-Policies: none
 Referrer-Policy: strict-origin-when-cross-origin
 Content-Type: application/json; charset=utf-8
 Vary: Accept
-ETag: W/&quot;d9d8bc2b5d5e12ff3c69b30d33d40744&quot;
+ETag: W/&quot;0489f98285549043616fddefcc526197&quot;
 Cache-Control: max-age=0, private, must-revalidate
-X-Request-Id: e84076b5-5b82-4516-997c-3e152a376301
-X-Runtime: 0.004250
-Content-Length: 118</pre>
+X-Request-Id: 663051f9-9a91-4cb2-81d3-9d20f02f96be
+X-Runtime: 0.003221
+Content-Length: 219</pre>
             <h4>Status</h4>
             <pre class="response status">200 OK</pre>
               <h4>Body</h4>
               <pre class="response body">{
-  &quot;jwt&quot;: &quot;eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxMTUsImV4cCI6MTY1NTMxNDIzMn0.7QoKI9rA47EEw6YfaQvTVuTGDSTZpa9Yrb152sWbqks&quot;
+  &quot;resource&quot;: {
+    &quot;id&quot;: 68,
+    &quot;user_id&quot;: 114,
+    &quot;amount&quot;: 9900,
+    &quot;note&quot;: null,
+    &quot;tags_id&quot;: [
+      151,
+      152
+    ],
+    &quot;happen_at&quot;: &quot;2020-10-29T16:00:00.000Z&quot;,
+    &quot;created_at&quot;: &quot;2022-06-15T15:30:32.369Z&quot;,
+    &quot;updated_at&quot;: &quot;2022-06-15T15:30:32.369Z&quot;,
+    &quot;kind&quot;: &quot;expenses&quot;
+  }
 }</pre>
       </div>
     </div>
