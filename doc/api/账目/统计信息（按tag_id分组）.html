@@ -109,8 +109,8 @@ table th, table td {
       <h1>账目 API</h1>
 
       <div class="article">
-        <h2>创建账目</h2>
-        <h3>POST /api/v1/items</h3>
+        <h2>统计信息（按tag_id分组）</h2>
+        <h3>GET /api/v1/items/summary</h3>
 
           <h3>Parameters</h3>
           <table class="parameters table table-striped table-bordered table-condensed">
@@ -123,10 +123,18 @@ table th, table td {
             <tbody>
               <tr>
                 <td class="required">
-                    <span class="name">amount</span>
+                    <span class="name">happened_after</span>
                 </td>
                 <td>
-                  <span class="description">金额（单位：分）</span>
+                  <span class="description">时间起点</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="required">
+                    <span class="name">happened_before</span>
+                </td>
+                <td>
+                  <span class="description">时间终点</span>
                 </td>
               </tr>
               <tr>
@@ -134,23 +142,15 @@ table th, table td {
                     <span class="name">kind</span>
                 </td>
                 <td>
-                  <span class="description">类型</span>
+                  <span class="description">账目类型</span>
                 </td>
               </tr>
               <tr>
                 <td class="required">
-                    <span class="name">happen_at</span>
+                    <span class="name">group_by</span>
                 </td>
                 <td>
-                  <span class="description">发生时间</span>
-                </td>
-              </tr>
-              <tr>
-                <td class="required">
-                    <span class="name">tags_id</span>
-                </td>
-                <td>
-                  <span class="description">标签列表（只传ID）</span>
+                  <span class="description">分组依据</span>
                 </td>
               </tr>
             </tbody>
@@ -167,42 +167,18 @@ table th, table td {
             <tbody>
               <tr>
                 <td>
-                    <span class="name">resource[id]</span>
+                    <span class="name">groups</span>
                 </td>
                 <td>
-                  <span class="description">Resource</span>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                    <span class="name">resource[amount]</span>
-                </td>
-                <td>
-                  <span class="description">Resource amount</span>
+                  <span class="description">分组信息</span>
                 </td>
               </tr>
               <tr>
                 <td>
-                    <span class="name">resource[kind]</span>
+                    <span class="name">total</span>
                 </td>
                 <td>
-                  <span class="description">Resource kind</span>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                    <span class="name">resource[happen_at]</span>
-                </td>
-                <td>
-                  <span class="description">Resource happen at</span>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                    <span class="name">resource[tags_id]</span>
-                </td>
-                <td>
-                  <span class="description">Resource tags</span>
+                  <span class="description">总金额（单位：分）</span>
                 </td>
               </tr>
             </tbody>
@@ -211,18 +187,21 @@ table th, table td {
           <h3>Request</h3>
 
             <h4>Headers</h4>
-            <pre class="request headers">Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyNTQsImV4cCI6MTY1NTQwMzQ2OH0.kzlklhe-lQJhV3daJkYbxojky_At3028n8x4ZKUjRuc
+            <pre class="request headers">Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyNTYsImV4cCI6MTY1NTQwMzQ2OH0.CKfAZOArBcpp5ZB2c6JAEvSzOlBrdf_eSWzEbjJCoHU
 Accept: application/json
 Content-Type: application/json
 Host: example.org
 Cookie: </pre>
 
           <h4>Route</h4>
-          <pre class="request route highlight">POST /api/v1/items</pre>
+          <pre class="request route highlight">GET /api/v1/items/summary?happened_after=2018-01-01&amp;happened_before=2019-01-01&amp;kind=expenses&amp;group_by=tag_id</pre>
 
+            <h4>Query Parameters</h4>
+            <pre class="request query_parameters highlight">happened_after: 2018-01-01
+happened_before: 2019-01-01
+kind: expenses
+group_by: tag_id</pre>
 
-            <h4>Body</h4>
-            <pre class="request body">{"amount":9900,"kind":"expenses","happen_at":"2020-10-30T00:00:00+08:00","tags_id":[370,371]}</pre>
 
 
             <h3>Response</h3>
@@ -235,29 +214,30 @@ X-Permitted-Cross-Domain-Policies: none
 Referrer-Policy: strict-origin-when-cross-origin
 Content-Type: application/json; charset=utf-8
 Vary: Accept
-ETag: W/&quot;b7ffdce85c4090339601d724e9416c74&quot;
+ETag: W/&quot;840f59ea4a9bf7cfa17090f49c680b67&quot;
 Cache-Control: max-age=0, private, must-revalidate
-X-Request-Id: 334a138d-f0a6-4e64-a51e-3d68d993a71b
-X-Runtime: 0.004088
-Content-Length: 220</pre>
+X-Request-Id: d4fdcdf0-a872-4697-8352-b5b1283bcce2
+X-Runtime: 0.002258
+Content-Length: 108</pre>
             <h4>Status</h4>
             <pre class="response status">200 OK</pre>
               <h4>Body</h4>
               <pre class="response body">{
-  &quot;resource&quot;: {
-    &quot;id&quot;: 469,
-    &quot;user_id&quot;: 254,
-    &quot;amount&quot;: 9900,
-    &quot;note&quot;: null,
-    &quot;tags_id&quot;: [
-      370,
-      371
-    ],
-    &quot;happen_at&quot;: &quot;2020-10-29T16:00:00.000Z&quot;,
-    &quot;created_at&quot;: &quot;2022-06-16T16:17:48.559Z&quot;,
-    &quot;updated_at&quot;: &quot;2022-06-16T16:17:48.559Z&quot;,
-    &quot;kind&quot;: &quot;expenses&quot;
-  }
+  &quot;groups&quot;: [
+    {
+      &quot;tag_id&quot;: 375,
+      &quot;amount&quot;: 500
+    },
+    {
+      &quot;tag_id&quot;: 373,
+      &quot;amount&quot;: 400
+    },
+    {
+      &quot;tag_id&quot;: 374,
+      &quot;amount&quot;: 300
+    }
+  ],
+  &quot;total&quot;: 600
 }</pre>
       </div>
     </div>

@@ -54,4 +54,60 @@ resource "账目" do
       expect(json['resource']['amount']).to eq amount
     end
   end
+
+  get "/api/v1/items/summary" do
+    authentication :basic, :auth
+    parameter :happened_after, '时间起点', required: true
+    parameter :happened_before, '时间终点', required: true
+    parameter :kind, '账目类型', enum: ['expenses', 'income'], required: true
+    parameter :group_by, '分组依据', enum: ['happen_at', 'tag_id'], required: true
+    response_field :groups, '分组信息'
+    response_field :total, "总金额（单位：分）"
+    let(:happened_after) { '2018-01-01' }
+    let(:happened_before) { '2019-01-01' }
+    let(:kind) { 'expenses' }
+    example "统计信息（按happen_at分组）" do
+      user = current_user
+      tag = Tag.create! name: 'tag1', sign: 'x', user_id: user.id
+      Item.create! amount: 100, kind: 'expenses', tags_id: [tag.id], happen_at: '2018-06-18T00:00:00+08:00', user_id: user.id
+      Item.create! amount: 200, kind: 'expenses', tags_id: [tag.id], happen_at: '2018-06-18T00:00:00+08:00', user_id: user.id
+      Item.create! amount: 100, kind: 'expenses', tags_id: [tag.id], happen_at: '2018-06-20T00:00:00+08:00', user_id: user.id
+      Item.create! amount: 200, kind: 'expenses', tags_id: [tag.id], happen_at: '2018-06-20T00:00:00+08:00', user_id: user.id
+      Item.create! amount: 100, kind: 'expenses', tags_id: [tag.id], happen_at: '2018-06-19T00:00:00+08:00', user_id: user.id
+      Item.create! amount: 200, kind: 'expenses', tags_id: [tag.id], happen_at: '2018-06-19T00:00:00+08:00', user_id: user.id
+      do_request group_by: 'happen_at'
+      expect(status).to eq 200
+      json = JSON.parse response_body
+      expect(json['groups'].size).to eq 3
+      expect(json['groups'][0]['happen_at']).to eq '2018-06-18'
+      expect(json['groups'][0]['amount']).to eq 300
+      expect(json['groups'][1]['happen_at']).to eq '2018-06-19'
+      expect(json['groups'][1]['amount']).to eq 300
+      expect(json['groups'][2]['happen_at']).to eq '2018-06-20'
+      expect(json['groups'][2]['amount']).to eq 300
+      expect(json['total']).to eq 900
+    end
+
+    example "统计信息（按tag_id分组）" do
+      user = current_user
+      tag1 = Tag.create! name: 'tag1', sign: 'x', user_id: user.id
+      tag2 = Tag.create! name: 'tag2', sign: 'x', user_id: user.id
+      tag3 = Tag.create! name: 'tag3', sign: 'x', user_id: user.id
+      Item.create! amount: 100, kind: 'expenses', tags_id: [tag1.id, tag2.id], happen_at: '2018-06-18T00:00:00+08:00', user_id: user.id
+      Item.create! amount: 200, kind: 'expenses', tags_id: [tag2.id, tag3.id], happen_at: '2018-06-18T00:00:00+08:00', user_id: user.id
+      Item.create! amount: 300, kind: 'expenses', tags_id: [tag3.id, tag1.id], happen_at: '2018-06-18T00:00:00+08:00', user_id: user.id
+      do_request group_by: 'tag_id'
+      expect(status).to eq 200
+      json = JSON.parse response_body
+      expect(json['groups'].size).to eq 3
+      expect(json['groups'][0]['tag_id']).to eq tag3.id
+      expect(json['groups'][0]['amount']).to eq 500
+      expect(json['groups'][1]['tag_id']).to eq tag1.id
+      expect(json['groups'][1]['amount']).to eq 400
+      expect(json['groups'][2]['tag_id']).to eq tag2.id
+      expect(json['groups'][2]['amount']).to eq 300
+      expect(json['total']).to eq 600
+    end
+
+  end
 end
