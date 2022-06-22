@@ -21,13 +21,6 @@ function title {
 yes | rm tmp/mangosteen-*.tar.gz; 
 yes | rm $deploy_dir/mangosteen-*.tar.gz; 
 
-# # tar --exclude="tmp/cache/*" -czv -f $dist *
-# mkdir -p $deploy_dir
-# cp $current_dir/../config/host.Dockerfile $deploy_dir/Dockerfile
-# cp $current_dir/setup_host.sh $deploy_dir/
-# mv $dist $deploy_dir
-# echo $time > $deploy_dir/version
-
 title '打包源代码'
 tar --exclude="tmp/cache/*" --exclude="tmp/deploy_cache/*" --exclude="vendor/*" -cz -f $dist *
 title "打包本地依赖 ${vendor_1}"
