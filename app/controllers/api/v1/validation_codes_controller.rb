@@ -1,6 +1,6 @@
 class Api::V1::ValidationCodesController < ApplicationController
   def create
-    if ValidationCode.exists?(email: params[:email], kind:'sign_in',created_at: 1.minute.ago..Time.now)
+    if ValidationCode.exists?(email: params[:email], kind:'sign_in',created_at: 3.seconds.ago..Time.now)
       render status: :too_many_requests
       return
     end
