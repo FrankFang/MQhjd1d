@@ -1,0 +1,10 @@
+zh-CN:
+  activerecord:
+    errors:
+      messages:
+        invalid: 格式不正确
+      models:
+        validation_code:
+          attributes:
+            email:
+              invalid: 邮件地址格式不正确
