@@ -24,6 +24,7 @@ resource "标签" do
   end
   get "/api/v1/tags" do
     parameter :page, '页码'
+    parameter :kind, '类型', in: ['expenses', 'income']
     with_options :scope => :resources do
       response_field :id, 'ID'
       response_field :name, "名称"
