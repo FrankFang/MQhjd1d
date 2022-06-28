@@ -12,4 +12,5 @@ class Session
     self.errors.add :email, :not_found unless 
       ValidationCode.exists? email: self.email, code: self.code, used_at: nil
   end
+  
 end

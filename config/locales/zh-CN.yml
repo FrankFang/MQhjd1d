@@ -3,8 +3,16 @@ zh-CN:
     errors:
       messages:
         invalid: 格式不正确
+        blank: 必填
+        not_found: 找不到对应的记录
       models:
         validation_code:
           attributes:
             email:
               invalid: 邮件地址格式不正确
+  activemodel:
+    errors:
+      messages:
+        invalid: 格式不正确
+        blank: 必填
+        not_found: 找不到对应的记录
