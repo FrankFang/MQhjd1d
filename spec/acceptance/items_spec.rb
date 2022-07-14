@@ -68,7 +68,7 @@ resource "账目" do
     let(:kind) { "expenses" }
     example "统计信息（按happen_at分组）" do
       user = current_user
-      tag = Tag.create! name: "tag1", sign: "x", user_id: user.id
+      tag = create :tag, user: user
       Item.create! amount: 100, kind: "expenses", tag_ids: [tag.id], happen_at: "2018-06-18T00:00:00+08:00", user_id: user.id
       Item.create! amount: 200, kind: "expenses", tag_ids: [tag.id], happen_at: "2018-06-18T00:00:00+08:00", user_id: user.id
       Item.create! amount: 100, kind: "expenses", tag_ids: [tag.id], happen_at: "2018-06-20T00:00:00+08:00", user_id: user.id
@@ -90,9 +90,9 @@ resource "账目" do
 
     example "统计信息（按tag_id分组）" do
       user = current_user
-      tag1 = Tag.create! name: "tag1", sign: "x", user_id: user.id
-      tag2 = Tag.create! name: "tag2", sign: "x", user_id: user.id
-      tag3 = Tag.create! name: "tag3", sign: "x", user_id: user.id
+      tag1 = create :tag, user: user
+      tag2 = create :tag, user: user
+      tag3 = create :tag, user: user
       Item.create! amount: 100, kind: "expenses", tag_ids: [tag1.id, tag2.id], happen_at: "2018-06-18T00:00:00+08:00", user_id: user.id
       Item.create! amount: 200, kind: "expenses", tag_ids: [tag2.id, tag3.id], happen_at: "2018-06-18T00:00:00+08:00", user_id: user.id
       Item.create! amount: 300, kind: "expenses", tag_ids: [tag3.id, tag1.id], happen_at: "2018-06-18T00:00:00+08:00", user_id: user.id
