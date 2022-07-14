@@ -9,8 +9,7 @@ RSpec.describe "Api::V1::Tags", type: :request do
     it "登录后获取标签" do
       user = create :user
       another_user = create :user
-      11.times do |i| create :tag, name: "tag#{i}", user: user end
-      11.times do |i| create :tag, name: "tag#{i}", sign: "x" end
+      create_list :tag, 11, user: user
 
       get "/api/v1/tags", headers: user.generate_auth_header
       expect(response).to have_http_status(200)
@@ -24,8 +23,8 @@ RSpec.describe "Api::V1::Tags", type: :request do
     end
     it "根据 kind 获取标签" do
       user = create :user
-      11.times do |i| Tag.create name: "tag#{i}", user_id: user.id, sign: "x", kind: "expenses" end
-      11.times do |i| Tag.create name: "tag#{i}", user_id: user.id, sign: "x", kind: "income" end
+      create_list :tag, 11, user: user, kind: 'expenses'
+      create_list :tag, 11, user: user, kind: 'income'
 
       get "/api/v1/tags", headers: user.generate_auth_header, params: { kind: "expenses" }
       expect(response).to have_http_status(200)
@@ -40,15 +39,13 @@ RSpec.describe "Api::V1::Tags", type: :request do
   end
   describe "获取标签" do
     it "未登录获取标签" do
-      user = create :user
-      tag = Tag.create name: "tag1", user_id: user.id, sign: "x"
+      tag = create :tag
       get "/api/v1/tags/#{tag.id}"
       expect(response).to have_http_status(401)
     end
     it "登录后获取标签" do
-      user = create :user
-      tag = Tag.create name: "tag1", user_id: user.id, sign: "x"
-      get "/api/v1/tags/#{tag.id}", headers: user.generate_auth_header
+      tag = create :tag
+      get "/api/v1/tags/#{tag.id}", headers: tag.user.generate_auth_header
       expect(response).to have_http_status(200)
       json = JSON.parse response.body
       expect(json["resource"]["id"]).to eq tag.id
@@ -56,7 +53,7 @@ RSpec.describe "Api::V1::Tags", type: :request do
     it "登录后获取不属于自己的标签" do
       user = create :user
       another_user = create :user
-      tag = Tag.create name: "tag1", user_id: another_user.id, sign: "x"
+      tag = create :tag, user: another_user
       get "/api/v1/tags/#{tag.id}", headers: user.generate_auth_header
       expect(response).to have_http_status(403)
     end
@@ -93,13 +90,13 @@ RSpec.describe "Api::V1::Tags", type: :request do
   describe "更新标签" do
     it "未登录修改标签" do
       user = create :user
-      tag = Tag.create name: "x", sign: "x", user_id: user.id
+      tag = create :tag, user: user
       patch "/api/v1/tags/#{tag.id}", params: { name: "y", sign: "y" }
       expect(response).to have_http_status(401)
     end
     it "登录后修改标签" do
       user = create :user
-      tag = Tag.create name: "x", sign: "x", user_id: user.id
+      tag = create :tag, user: user
       patch "/api/v1/tags/#{tag.id}", params: { name: "y", sign: "y" }, headers: user.generate_auth_header
       expect(response).to have_http_status(200)
       json = JSON.parse response.body
@@ -108,7 +105,7 @@ RSpec.describe "Api::V1::Tags", type: :request do
     end
     it "登录后部分修改标签" do
       user = create :user
-      tag = Tag.create name: "x", sign: "x", user_id: user.id
+      tag = create :tag, user: user
       patch "/api/v1/tags/#{tag.id}", params: { name: "y" }, headers: user.generate_auth_header
       expect(response).to have_http_status(200)
       json = JSON.parse response.body
@@ -120,13 +117,13 @@ RSpec.describe "Api::V1::Tags", type: :request do
   describe "删除标签" do
     it "未登录删除标签" do
       user = create :user
-      tag = Tag.create name: "x", sign: "x", user_id: user.id
+      tag = create :tag, user: user
       delete "/api/v1/tags/#{tag.id}"
       expect(response).to have_http_status(401)
     end
     it "登录后删除标签" do
       user = create :user
-      tag = Tag.create name: "x", sign: "x", user_id: user.id
+      tag = create :tag, user: user
       delete "/api/v1/tags/#{tag.id}", headers: user.generate_auth_header
       expect(response).to have_http_status(200)
       tag.reload
@@ -135,7 +132,7 @@ RSpec.describe "Api::V1::Tags", type: :request do
     it "登录后删除别人的标签" do
       user = create :user
       other = create :user
-      tag = Tag.create name: "x", sign: "x", user_id: other.id
+      tag = create :tag, user: other
       delete "/api/v1/tags/#{tag.id}", headers: user.generate_auth_header
       expect(response).to have_http_status(403)
     end

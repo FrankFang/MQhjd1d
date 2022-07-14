@@ -16,7 +16,7 @@ resource "账目" do
     let(:created_after) { Time.now - 10.days }
     let(:created_before) { Time.now + 10.days }
     example "获取账目" do
-      tag = Tag.create name: "x", sign: "x", user_id: current_user.id
+      tag = create :tag, user: current_user
       11.times do
         Item.create! amount: 100, happen_at: "2020-10-30", tag_ids: [tag.id],
           user_id: current_user.id
@@ -44,7 +44,7 @@ resource "账目" do
     let(:amount) { 9900 }
     let(:kind) { "expenses" }
     let(:happen_at) { "2020-10-30T00:00:00+08:00" }
-    let(:tags) { (0..1).map { Tag.create name: "x", sign: "x", user_id: current_user.id } }
+    let(:tags) { (0..1).map { create :tag, user: current_user } }
     let(:tag_ids) { tags.map(&:id) }
     let(:happen_at) { "2020-10-30T00:00:00+08:00" }
     example "创建账目" do
