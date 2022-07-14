@@ -15,8 +15,8 @@ RSpec.describe "Items", type: :request do
     it "分页" do
       user1 = create :user
       user2 = create :user
-      11.times { Item.create! amount: 100, user_id: user1.id }
-      11.times { Item.create! amount: 100, user_id: user2.id }
+      create_list :item, 11, user:user1
+      create_list :item, 11, user:user2
 
       get "/api/v1/items", headers: user1.generate_auth_header
       expect(response).to have_http_status 200
@@ -29,9 +29,9 @@ RSpec.describe "Items", type: :request do
     end
     it "按时间筛选" do
       user1 = create :user
-      item1 = Item.create amount: 100, created_at: "2018-01-02", user_id: user1.id
-      item2 = Item.create amount: 100, created_at: "2018-01-02", user_id: user1.id
-      item3 = Item.create amount: 100, created_at: "2019-01-01", user_id: user1.id
+      item1 = create :item, created_at: "2018-01-02", user: user1
+      item2 = create :item, created_at: "2018-01-02", user: user1
+      item3 = create :item, created_at: "2019-01-01", user: user1
 
       get "/api/v1/items?created_after=2018-01-01&created_before=2018-01-03",
         headers: user1.generate_auth_header
@@ -43,7 +43,7 @@ RSpec.describe "Items", type: :request do
     end
     it "按时间筛选（边界条件）" do
       user1 = create :user
-      item1 = Item.create amount: 100, created_at: "2018-01-01", user_id: user1.id
+      item1 = create :item, created_at: "2018-01-01", user: user1
 
       get "/api/v1/items?created_after=2018-01-01&created_before=2018-01-02",
         headers: user1.generate_auth_header
@@ -54,8 +54,8 @@ RSpec.describe "Items", type: :request do
     end
     it "按时间筛选（边界条件2）" do
       user1 = create :user
-      item1 = Item.create amount: 100, created_at: "2018-01-01", user_id: user1.id
-      item2 = Item.create amount: 100, created_at: "2017-01-01", user_id: user1.id
+      item1 = create :item, created_at: "2018-01-01", user: user1
+      item2 = create :item, created_at: "2017-01-01", user: user1
       get "/api/v1/items?created_after=2018-01-01",
         headers: user1.generate_auth_header
       expect(response).to have_http_status 200
@@ -65,8 +65,8 @@ RSpec.describe "Items", type: :request do
     end
     it "按时间筛选（边界条件3）" do
       user1 = create :user
-      item1 = Item.create amount: 100, created_at: "2018-01-01", user_id: user1.id
-      item2 = Item.create amount: 100, created_at: "2019-01-01", user_id: user1.id
+      item1 = create :item, created_at: "2018-01-01", user: user1
+      item2 = create :item, created_at: "2019-01-01", user: user1
 
       get "/api/v1/items?created_before=2018-01-02",
         headers: user1.generate_auth_header
@@ -111,12 +111,12 @@ RSpec.describe "Items", type: :request do
     it "按天分组" do
       user = create :user
       tag = create :tag, user: user
-      Item.create! amount: 100, kind: "expenses", tag_ids: [tag.id], happen_at: "2018-06-18T00:00:00+08:00", user_id: user.id
-      Item.create! amount: 200, kind: "expenses", tag_ids: [tag.id], happen_at: "2018-06-18T00:00:00+08:00", user_id: user.id
-      Item.create! amount: 100, kind: "expenses", tag_ids: [tag.id], happen_at: "2018-06-20T00:00:00+08:00", user_id: user.id
-      Item.create! amount: 200, kind: "expenses", tag_ids: [tag.id], happen_at: "2018-06-20T00:00:00+08:00", user_id: user.id
-      Item.create! amount: 100, kind: "expenses", tag_ids: [tag.id], happen_at: "2018-06-19T00:00:00+08:00", user_id: user.id
-      Item.create! amount: 200, kind: "expenses", tag_ids: [tag.id], happen_at: "2018-06-19T00:00:00+08:00", user_id: user.id
+      create :tag, amount: 100, kind: "expenses", tag_ids: [tag.id], happen_at: "2018-06-18T00:00:00+08:00", user: user
+      create :tag, amount: 200, kind: "expenses", tag_ids: [tag.id], happen_at: "2018-06-18T00:00:00+08:00", user: user
+      create :tag, amount: 100, kind: "expenses", tag_ids: [tag.id], happen_at: "2018-06-20T00:00:00+08:00", user: user
+      create :tag, amount: 200, kind: "expenses", tag_ids: [tag.id], happen_at: "2018-06-20T00:00:00+08:00", user: user
+      create :tag, amount: 100, kind: "expenses", tag_ids: [tag.id], happen_at: "2018-06-19T00:00:00+08:00", user: user
+      create :tag, amount: 200, kind: "expenses", tag_ids: [tag.id], happen_at: "2018-06-19T00:00:00+08:00", user: user
       get "/api/v1/items/summary", params: {
                                      happened_after: "2018-01-01",
                                      happened_before: "2019-01-01",
@@ -139,9 +139,9 @@ RSpec.describe "Items", type: :request do
       tag1 = create :tag, user: user
       tag2 = create :tag, user: user
       tag3 = create :tag, user: user
-      Item.create! amount: 100, kind: "expenses", tag_ids: [tag1.id, tag2.id], happen_at: "2018-06-18T00:00:00+08:00", user_id: user.id
-      Item.create! amount: 200, kind: "expenses", tag_ids: [tag2.id, tag3.id], happen_at: "2018-06-18T00:00:00+08:00", user_id: user.id
-      Item.create! amount: 300, kind: "expenses", tag_ids: [tag3.id, tag1.id], happen_at: "2018-06-18T00:00:00+08:00", user_id: user.id
+      create :item, amount: 100, kind: "expenses", tag_ids: [tag1.id, tag2.id], happen_at: "2018-06-18T00:00:00+08:00", user: user
+      create :item, amount: 200, kind: "expenses", tag_ids: [tag2.id, tag3.id], happen_at: "2018-06-18T00:00:00+08:00", user: user
+      create :item, amount: 300, kind: "expenses", tag_ids: [tag3.id, tag1.id], happen_at: "2018-06-18T00:00:00+08:00", user: user
       get "/api/v1/items/summary", params: {
                                      happened_after: "2018-01-01",
                                      happened_before: "2019-01-01",
