@@ -3,26 +3,21 @@ require "rails_helper"
 RSpec.describe "Items", type: :request do
   describe "获取账目" do
     it "分页，未登录" do
-      user1 = create :user, email: "1@qq.com"
-      user2 = create :user
-      create_list :item, 11, amount: 100, user: user1,
-                             tag_ids: [create(:tag, user: user1).id]
-      create_list :item, 11, amount: 100, user: user2,
-                             tag_ids: [create(:tag, user: user2).id]
+      create_list :item, 11, amount: 100
+      create_list :item, 11, amount: 100
       get "/api/v1/items"
       expect(response).to have_http_status 401
     end
     it "分页" do
-      user1 = create :user
-      user2 = create :user
-      create_list :item, 11, user:user1
-      create_list :item, 11, user:user2
+      user = create :user
+      items = create_list :item, 11, user: user
+      create_list :item, 11
 
-      get "/api/v1/items", headers: user1.generate_auth_header
+      get "/api/v1/items", headers: items.first.user.generate_auth_header
       expect(response).to have_http_status 200
       json = JSON.parse(response.body)
       expect(json["resources"].size).to eq 10
-      get "/api/v1/items?page=2", headers: user1.generate_auth_header
+      get "/api/v1/items?page=2", headers: items.first.user.generate_auth_header
       expect(response).to have_http_status 200
       json = JSON.parse(response.body)
       expect(json["resources"].size).to eq 1
@@ -42,22 +37,20 @@ RSpec.describe "Items", type: :request do
       expect(json["resources"][1]["id"]).to eq item2.id
     end
     it "按时间筛选（边界条件）" do
-      user1 = create :user
-      item1 = create :item, created_at: "2018-01-01", user: user1
+      item1 = create :item, created_at: "2018-01-01"
 
       get "/api/v1/items?created_after=2018-01-01&created_before=2018-01-02",
-        headers: user1.generate_auth_header
+        headers: item1.user.generate_auth_header
       expect(response).to have_http_status 200
       json = JSON.parse(response.body)
       expect(json["resources"].size).to eq 1
       expect(json["resources"][0]["id"]).to eq item1.id
     end
     it "按时间筛选（边界条件2）" do
-      user1 = create :user
-      item1 = create :item, created_at: "2018-01-01", user: user1
-      item2 = create :item, created_at: "2017-01-01", user: user1
+      item1 = create :item, created_at: "2018-01-01"
+      item2 = create :item, created_at: "2017-01-01", user: item1.user
       get "/api/v1/items?created_after=2018-01-01",
-        headers: user1.generate_auth_header
+        headers: item1.user.generate_auth_header
       expect(response).to have_http_status 200
       json = JSON.parse(response.body)
       expect(json["resources"].size).to eq 1
@@ -102,21 +95,20 @@ RSpec.describe "Items", type: :request do
       post "/api/v1/items", params: {}, headers: user.generate_auth_header
       expect(response).to have_http_status 422
       json = JSON.parse response.body
-      expect(json["errors"]["amount"][0]).to eq "can't be blank"
-      expect(json["errors"]["tag_ids"][0]).to eq "can't be blank"
-      expect(json["errors"]["happen_at"][0]).to eq "can't be blank"
+      expect(json["errors"]["amount"][0]).to be_a String
+      expect(json["errors"]["tag_ids"][0]).to be_a String
+      expect(json["errors"]["happen_at"][0]).to be_a String
     end
   end
   describe "统计数据" do
     it "按天分组" do
       user = create :user
-      tag = create :tag, user: user
-      create :tag, amount: 100, kind: "expenses", tag_ids: [tag.id], happen_at: "2018-06-18T00:00:00+08:00", user: user
-      create :tag, amount: 200, kind: "expenses", tag_ids: [tag.id], happen_at: "2018-06-18T00:00:00+08:00", user: user
-      create :tag, amount: 100, kind: "expenses", tag_ids: [tag.id], happen_at: "2018-06-20T00:00:00+08:00", user: user
-      create :tag, amount: 200, kind: "expenses", tag_ids: [tag.id], happen_at: "2018-06-20T00:00:00+08:00", user: user
-      create :tag, amount: 100, kind: "expenses", tag_ids: [tag.id], happen_at: "2018-06-19T00:00:00+08:00", user: user
-      create :tag, amount: 200, kind: "expenses", tag_ids: [tag.id], happen_at: "2018-06-19T00:00:00+08:00", user: user
+      create :item, amount: 100, kind: "expenses", happen_at: "2018-06-18T00:00:00+08:00", user: user
+      create :item, amount: 200, kind: "expenses", happen_at: "2018-06-18T00:00:00+08:00", user: user
+      create :item, amount: 100, kind: "expenses", happen_at: "2018-06-20T00:00:00+08:00", user: user
+      create :item, amount: 200, kind: "expenses", happen_at: "2018-06-20T00:00:00+08:00", user: user
+      create :item, amount: 100, kind: "expenses", happen_at: "2018-06-19T00:00:00+08:00", user: user
+      create :item, amount: 200, kind: "expenses", happen_at: "2018-06-19T00:00:00+08:00", user: user
       get "/api/v1/items/summary", params: {
                                      happened_after: "2018-01-01",
                                      happened_before: "2019-01-01",
