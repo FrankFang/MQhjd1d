@@ -18,7 +18,7 @@ resource "账目" do
     example "获取账目" do
       tag = Tag.create name: "x", sign: "x", user_id: current_user.id
       11.times do
-        Item.create! amount: 100, happen_at: "2020-10-30", tags_id: [tag.id],
+        Item.create! amount: 100, happen_at: "2020-10-30", tag_ids: [tag.id],
           user_id: current_user.id
       end
       do_request
@@ -33,19 +33,19 @@ resource "账目" do
     parameter :amount, "金额（单位：分）", required: true
     parameter :kind, "类型", required: true, enum: ["expenses", "income"]
     parameter :happen_at, "发生时间", required: true
-    parameter :tags_id, "标签列表（只传ID）", required: true
+    parameter :tag_ids, "标签列表（只传ID）", required: true
     with_options :scope => :resource do
       response_field :id
       response_field :amount
       response_field :kind
       response_field :happen_at
-      response_field :tags_id
+      response_field :tag_ids
     end
     let(:amount) { 9900 }
     let(:kind) { "expenses" }
     let(:happen_at) { "2020-10-30T00:00:00+08:00" }
     let(:tags) { (0..1).map { Tag.create name: "x", sign: "x", user_id: current_user.id } }
-    let(:tags_id) { tags.map(&:id) }
+    let(:tag_ids) { tags.map(&:id) }
     let(:happen_at) { "2020-10-30T00:00:00+08:00" }
     example "创建账目" do
       do_request
@@ -69,12 +69,12 @@ resource "账目" do
     example "统计信息（按happen_at分组）" do
       user = current_user
       tag = Tag.create! name: "tag1", sign: "x", user_id: user.id
-      Item.create! amount: 100, kind: "expenses", tags_id: [tag.id], happen_at: "2018-06-18T00:00:00+08:00", user_id: user.id
-      Item.create! amount: 200, kind: "expenses", tags_id: [tag.id], happen_at: "2018-06-18T00:00:00+08:00", user_id: user.id
-      Item.create! amount: 100, kind: "expenses", tags_id: [tag.id], happen_at: "2018-06-20T00:00:00+08:00", user_id: user.id
-      Item.create! amount: 200, kind: "expenses", tags_id: [tag.id], happen_at: "2018-06-20T00:00:00+08:00", user_id: user.id
-      Item.create! amount: 100, kind: "expenses", tags_id: [tag.id], happen_at: "2018-06-19T00:00:00+08:00", user_id: user.id
-      Item.create! amount: 200, kind: "expenses", tags_id: [tag.id], happen_at: "2018-06-19T00:00:00+08:00", user_id: user.id
+      Item.create! amount: 100, kind: "expenses", tag_ids: [tag.id], happen_at: "2018-06-18T00:00:00+08:00", user_id: user.id
+      Item.create! amount: 200, kind: "expenses", tag_ids: [tag.id], happen_at: "2018-06-18T00:00:00+08:00", user_id: user.id
+      Item.create! amount: 100, kind: "expenses", tag_ids: [tag.id], happen_at: "2018-06-20T00:00:00+08:00", user_id: user.id
+      Item.create! amount: 200, kind: "expenses", tag_ids: [tag.id], happen_at: "2018-06-20T00:00:00+08:00", user_id: user.id
+      Item.create! amount: 100, kind: "expenses", tag_ids: [tag.id], happen_at: "2018-06-19T00:00:00+08:00", user_id: user.id
+      Item.create! amount: 200, kind: "expenses", tag_ids: [tag.id], happen_at: "2018-06-19T00:00:00+08:00", user_id: user.id
       do_request group_by: "happen_at"
       expect(status).to eq 200
       json = JSON.parse response_body
@@ -93,9 +93,9 @@ resource "账目" do
       tag1 = Tag.create! name: "tag1", sign: "x", user_id: user.id
       tag2 = Tag.create! name: "tag2", sign: "x", user_id: user.id
       tag3 = Tag.create! name: "tag3", sign: "x", user_id: user.id
-      Item.create! amount: 100, kind: "expenses", tags_id: [tag1.id, tag2.id], happen_at: "2018-06-18T00:00:00+08:00", user_id: user.id
-      Item.create! amount: 200, kind: "expenses", tags_id: [tag2.id, tag3.id], happen_at: "2018-06-18T00:00:00+08:00", user_id: user.id
-      Item.create! amount: 300, kind: "expenses", tags_id: [tag3.id, tag1.id], happen_at: "2018-06-18T00:00:00+08:00", user_id: user.id
+      Item.create! amount: 100, kind: "expenses", tag_ids: [tag1.id, tag2.id], happen_at: "2018-06-18T00:00:00+08:00", user_id: user.id
+      Item.create! amount: 200, kind: "expenses", tag_ids: [tag2.id, tag3.id], happen_at: "2018-06-18T00:00:00+08:00", user_id: user.id
+      Item.create! amount: 300, kind: "expenses", tag_ids: [tag3.id, tag1.id], happen_at: "2018-06-18T00:00:00+08:00", user_id: user.id
       do_request group_by: "tag_id"
       expect(status).to eq 200
       json = JSON.parse response_body
