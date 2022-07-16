@@ -2,7 +2,7 @@ require "faker"
 
 FactoryBot.define do
   factory :tag do
-    name { Faker::Lorem.word }
+    name { Faker::Lorem.paragraph_by_chars(number: 4) }
     sign { Faker::Lorem.multibyte }
     kind { "expenses" }
     user
