@@ -68,6 +68,17 @@ RSpec.describe "Items", type: :request do
       expect(json["resources"].size).to eq 1
       expect(json["resources"][0]["id"]).to eq item1.id
     end
+    it "按 kind 筛选" do
+      user = create :user
+      create :item, kind: 'income', amount: 200, user: user
+      create :item, kind: 'expenses', amount: 100, user: user
+
+      get "/api/v1/items?kind=income", headers: user.generate_auth_header
+      expect(response).to have_http_status 200
+      json = JSON.parse(response.body)
+      expect(json["resources"].size).to eq 1
+      expect(json["resources"][0]["amount"]).to eq 200
+    end
   end
   describe "创建账目" do
     it "未登录创建" do
