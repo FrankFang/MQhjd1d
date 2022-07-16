@@ -142,7 +142,6 @@ RSpec.describe "Api::V1::Tags", type: :request do
       items = create_list :item, 2, user: user, tag_ids: [tag.id]
       delete "/api/v1/tags/#{tag.id}?with_items=true", headers: user.generate_auth_header
       expect(response).to have_http_status(200)
-      p response.status
       tag.reload
       items.first.reload
       items.second.reload

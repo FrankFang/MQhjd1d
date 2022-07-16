@@ -17,6 +17,7 @@ RSpec.describe "Items", type: :request do
       expect(response).to have_http_status 200
       json = JSON.parse(response.body)
       expect(json["resources"].size).to eq Item.default_per_page
+      expect(json["resources"][0]["tags"].size).to eq 1
       get "/api/v1/items?page=2", headers: items.first.user.generate_auth_header
       expect(response).to have_http_status 200
       json = JSON.parse(response.body)
