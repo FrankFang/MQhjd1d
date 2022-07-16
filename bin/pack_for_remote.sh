@@ -14,14 +14,17 @@ vendor_1=rspec_api_documentation
 api_dir=$current_dir/../doc/api
 
 function title {
-  echo 
+  echo
   echo "###############################################################################"
   echo "## $1"
-  echo "###############################################################################" 
-  echo 
+  echo "###############################################################################"
+  echo
 }
 
-
+title '运行测试用例'
+rspec || exit 1
+title '重新生成文档'
+bin/rails docs:generate || exit 2
 mkdir -p $cache_dir
 title '打包源代码'
 tar --exclude="tmp/cache/*" --exclude="tmp/deploy_cache/*" --exclude="vendor/*" -cz -f $dist *
