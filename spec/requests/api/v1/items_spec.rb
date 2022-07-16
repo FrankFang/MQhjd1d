@@ -178,10 +178,13 @@ RSpec.describe "Items", type: :request do
       json = JSON.parse response.body
       expect(json["groups"].size).to eq 3
       expect(json["groups"][0]["tag_id"]).to eq tag3.id
+      expect(json["groups"][0]["tag"]["name"]).to eq tag3.name
       expect(json["groups"][0]["amount"]).to eq 500
       expect(json["groups"][1]["tag_id"]).to eq tag1.id
+      expect(json["groups"][1]["tag"]["name"]).to eq tag1.name
       expect(json["groups"][1]["amount"]).to eq 400
       expect(json["groups"][2]["tag_id"]).to eq tag2.id
+      expect(json["groups"][2]["tag"]["name"]).to eq tag2.name
       expect(json["groups"][2]["amount"]).to eq 300
       expect(json["total"]).to eq 600
     end
