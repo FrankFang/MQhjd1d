@@ -91,7 +91,8 @@ RSpec.describe "Items", type: :request do
       tag2 = create :tag, user: user
       expect {
         post "/api/v1/items", params: { amount: 99, tag_ids: [tag1.id, tag2.id],
-                                        happen_at: "2018-01-01T00:00:00+08:00" },
+                                        happen_at: "2018-01-01T00:00:00+08:00",
+                                        kind: 'income' },
                               headers: user.generate_auth_header
       }.to change { Item.count }.by 1
       expect(response).to have_http_status 200
@@ -100,6 +101,7 @@ RSpec.describe "Items", type: :request do
       expect(json["resource"]["amount"]).to eq 99
       expect(json["resource"]["user_id"]).to eq user.id
       expect(json["resource"]["happen_at"]).to eq "2017-12-31T16:00:00.000Z"
+      expect(json["resource"]["kind"]).to eq "income"
     end
     it "创建时 amount、tag_ids、happen_at 必填" do
       user = create :user
