@@ -41,6 +41,9 @@ class Api::V1::TagsController < ApplicationController
     return head :forbidden unless tag.user_id == request.env['current_user_id']
     tag.deleted_at = Time.now
     if tag.save
+      if params[:with_items]
+        Item.where('tag_ids && ARRAY[?]::bigint[]', [tag.id]).destroy_all
+      end
       head 200
     else
       render json: {errors: tag.errors}, status: :unprocessable_entity
