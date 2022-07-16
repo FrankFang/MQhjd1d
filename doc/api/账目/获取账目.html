@@ -179,18 +179,18 @@ table th, table td {
           <h3>Request</h3>
 
             <h4>Headers</h4>
-            <pre class="request headers">Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjo4MDksImV4cCI6MTY1NzgyMjc5Nn0.uGYV3yw7CUN_nxpSbFgzU4dBf02g5VT9Lg4K_D1Oc-w
+            <pre class="request headers">Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxODc1LCJleHAiOjE2NTc5OTI2OTF9.aSo66XFLLU3JU4XCT_2E_feV7lJExPIZvbl31lQt6Gw
 Accept: application/json
 Content-Type: application/json
 Host: example.org
 Cookie: </pre>
 
           <h4>Route</h4>
-          <pre class="request route highlight">GET /api/v1/items?created_after=2022-07-05+00%3A19%3A56+%2B0800&amp;created_before=2022-07-25+00%3A19%3A56+%2B0800</pre>
+          <pre class="request route highlight">GET /api/v1/items?created_after=2022-07-06+23%3A31%3A31+%2B0800&amp;created_before=2022-07-26+23%3A31%3A31+%2B0800</pre>
 
             <h4>Query Parameters</h4>
-            <pre class="request query_parameters highlight">created_after: 2022-07-05 00:19:56 +0800
-created_before: 2022-07-25 00:19:56 +0800</pre>
+            <pre class="request query_parameters highlight">created_after: 2022-07-06 23:31:31 +0800
+created_before: 2022-07-26 23:31:31 +0800</pre>
 
 
 
@@ -204,151 +204,671 @@ X-Permitted-Cross-Domain-Policies: none
 Referrer-Policy: strict-origin-when-cross-origin
 Content-Type: application/json; charset=utf-8
 Vary: Accept
-ETag: W/&quot;604f6f78f7e62245405c4f7ea11ae68a&quot;
+ETag: W/&quot;0a541411a3f78f3d12964b3256ade550&quot;
 Cache-Control: max-age=0, private, must-revalidate
-X-Request-Id: 9f707857-bc43-41d4-a29d-9ced466f617a
-X-Runtime: 0.021723
-Content-Length: 2109</pre>
+X-Request-Id: c13d490a-4dbc-4162-8e0e-1a66e6c883fc
+X-Runtime: 0.028331
+Content-Length: 10159</pre>
             <h4>Status</h4>
             <pre class="response status">200 OK</pre>
               <h4>Body</h4>
               <pre class="response body">{
   &quot;resources&quot;: [
     {
-      &quot;id&quot;: 949,
-      &quot;user_id&quot;: 809,
-      &quot;amount&quot;: 9538,
+      &quot;id&quot;: 2905,
+      &quot;user_id&quot;: 1875,
+      &quot;amount&quot;: 6391,
       &quot;note&quot;: null,
       &quot;tag_ids&quot;: [
-        1296
-      ],
-      &quot;happen_at&quot;: &quot;2022-07-15T00:00:00.000Z&quot;,
-      &quot;created_at&quot;: &quot;2022-07-14T16:19:56.506Z&quot;,
-      &quot;updated_at&quot;: &quot;2022-07-14T16:19:56.506Z&quot;,
-      &quot;kind&quot;: &quot;expenses&quot;
-    },
-    {
-      &quot;id&quot;: 950,
-      &quot;user_id&quot;: 809,
-      &quot;amount&quot;: 2173,
-      &quot;note&quot;: null,
-      &quot;tag_ids&quot;: [
-        1296
-      ],
-      &quot;happen_at&quot;: &quot;2022-07-13T00:00:00.000Z&quot;,
-      &quot;created_at&quot;: &quot;2022-07-14T16:19:56.509Z&quot;,
-      &quot;updated_at&quot;: &quot;2022-07-14T16:19:56.509Z&quot;,
-      &quot;kind&quot;: &quot;expenses&quot;
-    },
-    {
-      &quot;id&quot;: 951,
-      &quot;user_id&quot;: 809,
-      &quot;amount&quot;: 7854,
-      &quot;note&quot;: null,
-      &quot;tag_ids&quot;: [
-        1296
-      ],
-      &quot;happen_at&quot;: &quot;2022-07-12T00:00:00.000Z&quot;,
-      &quot;created_at&quot;: &quot;2022-07-14T16:19:56.515Z&quot;,
-      &quot;updated_at&quot;: &quot;2022-07-14T16:19:56.515Z&quot;,
-      &quot;kind&quot;: &quot;expenses&quot;
-    },
-    {
-      &quot;id&quot;: 952,
-      &quot;user_id&quot;: 809,
-      &quot;amount&quot;: 4231,
-      &quot;note&quot;: null,
-      &quot;tag_ids&quot;: [
-        1296
+        5041
       ],
       &quot;happen_at&quot;: &quot;2022-07-14T00:00:00.000Z&quot;,
-      &quot;created_at&quot;: &quot;2022-07-14T16:19:56.519Z&quot;,
-      &quot;updated_at&quot;: &quot;2022-07-14T16:19:56.519Z&quot;,
-      &quot;kind&quot;: &quot;expenses&quot;
+      &quot;created_at&quot;: &quot;2022-07-16T15:31:31.424Z&quot;,
+      &quot;updated_at&quot;: &quot;2022-07-16T15:31:31.424Z&quot;,
+      &quot;kind&quot;: &quot;expenses&quot;,
+      &quot;deleted_at&quot;: null,
+      &quot;tags&quot;: [
+        {
+          &quot;id&quot;: 5041,
+          &quot;user_id&quot;: 1875,
+          &quot;name&quot;: &quot;Qui.&quot;,
+          &quot;sign&quot;: &quot;❤&quot;,
+          &quot;deleted_at&quot;: null,
+          &quot;created_at&quot;: &quot;2022-07-16T15:31:31.414Z&quot;,
+          &quot;updated_at&quot;: &quot;2022-07-16T15:31:31.414Z&quot;,
+          &quot;kind&quot;: &quot;expenses&quot;
+        }
+      ]
     },
     {
-      &quot;id&quot;: 953,
-      &quot;user_id&quot;: 809,
-      &quot;amount&quot;: 3310,
+      &quot;id&quot;: 2906,
+      &quot;user_id&quot;: 1875,
+      &quot;amount&quot;: 3599,
       &quot;note&quot;: null,
       &quot;tag_ids&quot;: [
-        1296
+        5041
       ],
-      &quot;happen_at&quot;: &quot;2022-07-12T00:00:00.000Z&quot;,
-      &quot;created_at&quot;: &quot;2022-07-14T16:19:56.522Z&quot;,
-      &quot;updated_at&quot;: &quot;2022-07-14T16:19:56.522Z&quot;,
-      &quot;kind&quot;: &quot;expenses&quot;
+      &quot;happen_at&quot;: &quot;2022-07-14T00:00:00.000Z&quot;,
+      &quot;created_at&quot;: &quot;2022-07-16T15:31:31.426Z&quot;,
+      &quot;updated_at&quot;: &quot;2022-07-16T15:31:31.426Z&quot;,
+      &quot;kind&quot;: &quot;expenses&quot;,
+      &quot;deleted_at&quot;: null,
+      &quot;tags&quot;: [
+        {
+          &quot;id&quot;: 5041,
+          &quot;user_id&quot;: 1875,
+          &quot;name&quot;: &quot;Qui.&quot;,
+          &quot;sign&quot;: &quot;❤&quot;,
+          &quot;deleted_at&quot;: null,
+          &quot;created_at&quot;: &quot;2022-07-16T15:31:31.414Z&quot;,
+          &quot;updated_at&quot;: &quot;2022-07-16T15:31:31.414Z&quot;,
+          &quot;kind&quot;: &quot;expenses&quot;
+        }
+      ]
     },
     {
-      &quot;id&quot;: 954,
-      &quot;user_id&quot;: 809,
-      &quot;amount&quot;: 9620,
+      &quot;id&quot;: 2907,
+      &quot;user_id&quot;: 1875,
+      &quot;amount&quot;: 5743,
       &quot;note&quot;: null,
       &quot;tag_ids&quot;: [
-        1296
+        5041
       ],
-      &quot;happen_at&quot;: &quot;2022-07-12T00:00:00.000Z&quot;,
-      &quot;created_at&quot;: &quot;2022-07-14T16:19:56.525Z&quot;,
-      &quot;updated_at&quot;: &quot;2022-07-14T16:19:56.525Z&quot;,
-      &quot;kind&quot;: &quot;expenses&quot;
+      &quot;happen_at&quot;: &quot;2022-07-16T00:00:00.000Z&quot;,
+      &quot;created_at&quot;: &quot;2022-07-16T15:31:31.428Z&quot;,
+      &quot;updated_at&quot;: &quot;2022-07-16T15:31:31.428Z&quot;,
+      &quot;kind&quot;: &quot;expenses&quot;,
+      &quot;deleted_at&quot;: null,
+      &quot;tags&quot;: [
+        {
+          &quot;id&quot;: 5041,
+          &quot;user_id&quot;: 1875,
+          &quot;name&quot;: &quot;Qui.&quot;,
+          &quot;sign&quot;: &quot;❤&quot;,
+          &quot;deleted_at&quot;: null,
+          &quot;created_at&quot;: &quot;2022-07-16T15:31:31.414Z&quot;,
+          &quot;updated_at&quot;: &quot;2022-07-16T15:31:31.414Z&quot;,
+          &quot;kind&quot;: &quot;expenses&quot;
+        }
+      ]
     },
     {
-      &quot;id&quot;: 955,
-      &quot;user_id&quot;: 809,
-      &quot;amount&quot;: 9416,
+      &quot;id&quot;: 2908,
+      &quot;user_id&quot;: 1875,
+      &quot;amount&quot;: 8253,
       &quot;note&quot;: null,
       &quot;tag_ids&quot;: [
-        1296
+        5041
       ],
-      &quot;happen_at&quot;: &quot;2022-07-12T00:00:00.000Z&quot;,
-      &quot;created_at&quot;: &quot;2022-07-14T16:19:56.528Z&quot;,
-      &quot;updated_at&quot;: &quot;2022-07-14T16:19:56.528Z&quot;,
-      &quot;kind&quot;: &quot;expenses&quot;
+      &quot;happen_at&quot;: &quot;2022-07-16T00:00:00.000Z&quot;,
+      &quot;created_at&quot;: &quot;2022-07-16T15:31:31.430Z&quot;,
+      &quot;updated_at&quot;: &quot;2022-07-16T15:31:31.430Z&quot;,
+      &quot;kind&quot;: &quot;expenses&quot;,
+      &quot;deleted_at&quot;: null,
+      &quot;tags&quot;: [
+        {
+          &quot;id&quot;: 5041,
+          &quot;user_id&quot;: 1875,
+          &quot;name&quot;: &quot;Qui.&quot;,
+          &quot;sign&quot;: &quot;❤&quot;,
+          &quot;deleted_at&quot;: null,
+          &quot;created_at&quot;: &quot;2022-07-16T15:31:31.414Z&quot;,
+          &quot;updated_at&quot;: &quot;2022-07-16T15:31:31.414Z&quot;,
+          &quot;kind&quot;: &quot;expenses&quot;
+        }
+      ]
     },
     {
-      &quot;id&quot;: 956,
-      &quot;user_id&quot;: 809,
-      &quot;amount&quot;: 7847,
+      &quot;id&quot;: 2909,
+      &quot;user_id&quot;: 1875,
+      &quot;amount&quot;: 2251,
       &quot;note&quot;: null,
       &quot;tag_ids&quot;: [
-        1296
+        5041
+      ],
+      &quot;happen_at&quot;: &quot;2022-07-14T00:00:00.000Z&quot;,
+      &quot;created_at&quot;: &quot;2022-07-16T15:31:31.432Z&quot;,
+      &quot;updated_at&quot;: &quot;2022-07-16T15:31:31.432Z&quot;,
+      &quot;kind&quot;: &quot;expenses&quot;,
+      &quot;deleted_at&quot;: null,
+      &quot;tags&quot;: [
+        {
+          &quot;id&quot;: 5041,
+          &quot;user_id&quot;: 1875,
+          &quot;name&quot;: &quot;Qui.&quot;,
+          &quot;sign&quot;: &quot;❤&quot;,
+          &quot;deleted_at&quot;: null,
+          &quot;created_at&quot;: &quot;2022-07-16T15:31:31.414Z&quot;,
+          &quot;updated_at&quot;: &quot;2022-07-16T15:31:31.414Z&quot;,
+          &quot;kind&quot;: &quot;expenses&quot;
+        }
+      ]
+    },
+    {
+      &quot;id&quot;: 2910,
+      &quot;user_id&quot;: 1875,
+      &quot;amount&quot;: 1291,
+      &quot;note&quot;: null,
+      &quot;tag_ids&quot;: [
+        5041
+      ],
+      &quot;happen_at&quot;: &quot;2022-07-16T00:00:00.000Z&quot;,
+      &quot;created_at&quot;: &quot;2022-07-16T15:31:31.434Z&quot;,
+      &quot;updated_at&quot;: &quot;2022-07-16T15:31:31.434Z&quot;,
+      &quot;kind&quot;: &quot;expenses&quot;,
+      &quot;deleted_at&quot;: null,
+      &quot;tags&quot;: [
+        {
+          &quot;id&quot;: 5041,
+          &quot;user_id&quot;: 1875,
+          &quot;name&quot;: &quot;Qui.&quot;,
+          &quot;sign&quot;: &quot;❤&quot;,
+          &quot;deleted_at&quot;: null,
+          &quot;created_at&quot;: &quot;2022-07-16T15:31:31.414Z&quot;,
+          &quot;updated_at&quot;: &quot;2022-07-16T15:31:31.414Z&quot;,
+          &quot;kind&quot;: &quot;expenses&quot;
+        }
+      ]
+    },
+    {
+      &quot;id&quot;: 2911,
+      &quot;user_id&quot;: 1875,
+      &quot;amount&quot;: 6315,
+      &quot;note&quot;: null,
+      &quot;tag_ids&quot;: [
+        5041
+      ],
+      &quot;happen_at&quot;: &quot;2022-07-16T00:00:00.000Z&quot;,
+      &quot;created_at&quot;: &quot;2022-07-16T15:31:31.435Z&quot;,
+      &quot;updated_at&quot;: &quot;2022-07-16T15:31:31.435Z&quot;,
+      &quot;kind&quot;: &quot;expenses&quot;,
+      &quot;deleted_at&quot;: null,
+      &quot;tags&quot;: [
+        {
+          &quot;id&quot;: 5041,
+          &quot;user_id&quot;: 1875,
+          &quot;name&quot;: &quot;Qui.&quot;,
+          &quot;sign&quot;: &quot;❤&quot;,
+          &quot;deleted_at&quot;: null,
+          &quot;created_at&quot;: &quot;2022-07-16T15:31:31.414Z&quot;,
+          &quot;updated_at&quot;: &quot;2022-07-16T15:31:31.414Z&quot;,
+          &quot;kind&quot;: &quot;expenses&quot;
+        }
+      ]
+    },
+    {
+      &quot;id&quot;: 2912,
+      &quot;user_id&quot;: 1875,
+      &quot;amount&quot;: 7111,
+      &quot;note&quot;: null,
+      &quot;tag_ids&quot;: [
+        5041
       ],
       &quot;happen_at&quot;: &quot;2022-07-15T00:00:00.000Z&quot;,
-      &quot;created_at&quot;: &quot;2022-07-14T16:19:56.531Z&quot;,
-      &quot;updated_at&quot;: &quot;2022-07-14T16:19:56.531Z&quot;,
-      &quot;kind&quot;: &quot;expenses&quot;
+      &quot;created_at&quot;: &quot;2022-07-16T15:31:31.437Z&quot;,
+      &quot;updated_at&quot;: &quot;2022-07-16T15:31:31.437Z&quot;,
+      &quot;kind&quot;: &quot;expenses&quot;,
+      &quot;deleted_at&quot;: null,
+      &quot;tags&quot;: [
+        {
+          &quot;id&quot;: 5041,
+          &quot;user_id&quot;: 1875,
+          &quot;name&quot;: &quot;Qui.&quot;,
+          &quot;sign&quot;: &quot;❤&quot;,
+          &quot;deleted_at&quot;: null,
+          &quot;created_at&quot;: &quot;2022-07-16T15:31:31.414Z&quot;,
+          &quot;updated_at&quot;: &quot;2022-07-16T15:31:31.414Z&quot;,
+          &quot;kind&quot;: &quot;expenses&quot;
+        }
+      ]
     },
     {
-      &quot;id&quot;: 957,
-      &quot;user_id&quot;: 809,
-      &quot;amount&quot;: 3661,
+      &quot;id&quot;: 2913,
+      &quot;user_id&quot;: 1875,
+      &quot;amount&quot;: 3831,
       &quot;note&quot;: null,
       &quot;tag_ids&quot;: [
-        1296
+        5041
       ],
-      &quot;happen_at&quot;: &quot;2022-07-12T00:00:00.000Z&quot;,
-      &quot;created_at&quot;: &quot;2022-07-14T16:19:56.535Z&quot;,
-      &quot;updated_at&quot;: &quot;2022-07-14T16:19:56.535Z&quot;,
-      &quot;kind&quot;: &quot;expenses&quot;
+      &quot;happen_at&quot;: &quot;2022-07-16T00:00:00.000Z&quot;,
+      &quot;created_at&quot;: &quot;2022-07-16T15:31:31.439Z&quot;,
+      &quot;updated_at&quot;: &quot;2022-07-16T15:31:31.439Z&quot;,
+      &quot;kind&quot;: &quot;expenses&quot;,
+      &quot;deleted_at&quot;: null,
+      &quot;tags&quot;: [
+        {
+          &quot;id&quot;: 5041,
+          &quot;user_id&quot;: 1875,
+          &quot;name&quot;: &quot;Qui.&quot;,
+          &quot;sign&quot;: &quot;❤&quot;,
+          &quot;deleted_at&quot;: null,
+          &quot;created_at&quot;: &quot;2022-07-16T15:31:31.414Z&quot;,
+          &quot;updated_at&quot;: &quot;2022-07-16T15:31:31.414Z&quot;,
+          &quot;kind&quot;: &quot;expenses&quot;
+        }
+      ]
     },
     {
-      &quot;id&quot;: 958,
-      &quot;user_id&quot;: 809,
-      &quot;amount&quot;: 7950,
+      &quot;id&quot;: 2914,
+      &quot;user_id&quot;: 1875,
+      &quot;amount&quot;: 1482,
       &quot;note&quot;: null,
       &quot;tag_ids&quot;: [
-        1296
+        5041
       ],
-      &quot;happen_at&quot;: &quot;2022-07-12T00:00:00.000Z&quot;,
-      &quot;created_at&quot;: &quot;2022-07-14T16:19:56.538Z&quot;,
-      &quot;updated_at&quot;: &quot;2022-07-14T16:19:56.538Z&quot;,
-      &quot;kind&quot;: &quot;expenses&quot;
+      &quot;happen_at&quot;: &quot;2022-07-15T00:00:00.000Z&quot;,
+      &quot;created_at&quot;: &quot;2022-07-16T15:31:31.441Z&quot;,
+      &quot;updated_at&quot;: &quot;2022-07-16T15:31:31.441Z&quot;,
+      &quot;kind&quot;: &quot;expenses&quot;,
+      &quot;deleted_at&quot;: null,
+      &quot;tags&quot;: [
+        {
+          &quot;id&quot;: 5041,
+          &quot;user_id&quot;: 1875,
+          &quot;name&quot;: &quot;Qui.&quot;,
+          &quot;sign&quot;: &quot;❤&quot;,
+          &quot;deleted_at&quot;: null,
+          &quot;created_at&quot;: &quot;2022-07-16T15:31:31.414Z&quot;,
+          &quot;updated_at&quot;: &quot;2022-07-16T15:31:31.414Z&quot;,
+          &quot;kind&quot;: &quot;expenses&quot;
+        }
+      ]
+    },
+    {
+      &quot;id&quot;: 2915,
+      &quot;user_id&quot;: 1875,
+      &quot;amount&quot;: 5311,
+      &quot;note&quot;: null,
+      &quot;tag_ids&quot;: [
+        5041
+      ],
+      &quot;happen_at&quot;: &quot;2022-07-15T00:00:00.000Z&quot;,
+      &quot;created_at&quot;: &quot;2022-07-16T15:31:31.443Z&quot;,
+      &quot;updated_at&quot;: &quot;2022-07-16T15:31:31.443Z&quot;,
+      &quot;kind&quot;: &quot;expenses&quot;,
+      &quot;deleted_at&quot;: null,
+      &quot;tags&quot;: [
+        {
+          &quot;id&quot;: 5041,
+          &quot;user_id&quot;: 1875,
+          &quot;name&quot;: &quot;Qui.&quot;,
+          &quot;sign&quot;: &quot;❤&quot;,
+          &quot;deleted_at&quot;: null,
+          &quot;created_at&quot;: &quot;2022-07-16T15:31:31.414Z&quot;,
+          &quot;updated_at&quot;: &quot;2022-07-16T15:31:31.414Z&quot;,
+          &quot;kind&quot;: &quot;expenses&quot;
+        }
+      ]
+    },
+    {
+      &quot;id&quot;: 2916,
+      &quot;user_id&quot;: 1875,
+      &quot;amount&quot;: 8488,
+      &quot;note&quot;: null,
+      &quot;tag_ids&quot;: [
+        5041
+      ],
+      &quot;happen_at&quot;: &quot;2022-07-16T00:00:00.000Z&quot;,
+      &quot;created_at&quot;: &quot;2022-07-16T15:31:31.445Z&quot;,
+      &quot;updated_at&quot;: &quot;2022-07-16T15:31:31.445Z&quot;,
+      &quot;kind&quot;: &quot;expenses&quot;,
+      &quot;deleted_at&quot;: null,
+      &quot;tags&quot;: [
+        {
+          &quot;id&quot;: 5041,
+          &quot;user_id&quot;: 1875,
+          &quot;name&quot;: &quot;Qui.&quot;,
+          &quot;sign&quot;: &quot;❤&quot;,
+          &quot;deleted_at&quot;: null,
+          &quot;created_at&quot;: &quot;2022-07-16T15:31:31.414Z&quot;,
+          &quot;updated_at&quot;: &quot;2022-07-16T15:31:31.414Z&quot;,
+          &quot;kind&quot;: &quot;expenses&quot;
+        }
+      ]
+    },
+    {
+      &quot;id&quot;: 2917,
+      &quot;user_id&quot;: 1875,
+      &quot;amount&quot;: 8897,
+      &quot;note&quot;: null,
+      &quot;tag_ids&quot;: [
+        5041
+      ],
+      &quot;happen_at&quot;: &quot;2022-07-16T00:00:00.000Z&quot;,
+      &quot;created_at&quot;: &quot;2022-07-16T15:31:31.446Z&quot;,
+      &quot;updated_at&quot;: &quot;2022-07-16T15:31:31.446Z&quot;,
+      &quot;kind&quot;: &quot;expenses&quot;,
+      &quot;deleted_at&quot;: null,
+      &quot;tags&quot;: [
+        {
+          &quot;id&quot;: 5041,
+          &quot;user_id&quot;: 1875,
+          &quot;name&quot;: &quot;Qui.&quot;,
+          &quot;sign&quot;: &quot;❤&quot;,
+          &quot;deleted_at&quot;: null,
+          &quot;created_at&quot;: &quot;2022-07-16T15:31:31.414Z&quot;,
+          &quot;updated_at&quot;: &quot;2022-07-16T15:31:31.414Z&quot;,
+          &quot;kind&quot;: &quot;expenses&quot;
+        }
+      ]
+    },
+    {
+      &quot;id&quot;: 2918,
+      &quot;user_id&quot;: 1875,
+      &quot;amount&quot;: 6118,
+      &quot;note&quot;: null,
+      &quot;tag_ids&quot;: [
+        5041
+      ],
+      &quot;happen_at&quot;: &quot;2022-07-15T00:00:00.000Z&quot;,
+      &quot;created_at&quot;: &quot;2022-07-16T15:31:31.448Z&quot;,
+      &quot;updated_at&quot;: &quot;2022-07-16T15:31:31.448Z&quot;,
+      &quot;kind&quot;: &quot;expenses&quot;,
+      &quot;deleted_at&quot;: null,
+      &quot;tags&quot;: [
+        {
+          &quot;id&quot;: 5041,
+          &quot;user_id&quot;: 1875,
+          &quot;name&quot;: &quot;Qui.&quot;,
+          &quot;sign&quot;: &quot;❤&quot;,
+          &quot;deleted_at&quot;: null,
+          &quot;created_at&quot;: &quot;2022-07-16T15:31:31.414Z&quot;,
+          &quot;updated_at&quot;: &quot;2022-07-16T15:31:31.414Z&quot;,
+          &quot;kind&quot;: &quot;expenses&quot;
+        }
+      ]
+    },
+    {
+      &quot;id&quot;: 2919,
+      &quot;user_id&quot;: 1875,
+      &quot;amount&quot;: 4302,
+      &quot;note&quot;: null,
+      &quot;tag_ids&quot;: [
+        5041
+      ],
+      &quot;happen_at&quot;: &quot;2022-07-15T00:00:00.000Z&quot;,
+      &quot;created_at&quot;: &quot;2022-07-16T15:31:31.450Z&quot;,
+      &quot;updated_at&quot;: &quot;2022-07-16T15:31:31.450Z&quot;,
+      &quot;kind&quot;: &quot;expenses&quot;,
+      &quot;deleted_at&quot;: null,
+      &quot;tags&quot;: [
+        {
+          &quot;id&quot;: 5041,
+          &quot;user_id&quot;: 1875,
+          &quot;name&quot;: &quot;Qui.&quot;,
+          &quot;sign&quot;: &quot;❤&quot;,
+          &quot;deleted_at&quot;: null,
+          &quot;created_at&quot;: &quot;2022-07-16T15:31:31.414Z&quot;,
+          &quot;updated_at&quot;: &quot;2022-07-16T15:31:31.414Z&quot;,
+          &quot;kind&quot;: &quot;expenses&quot;
+        }
+      ]
+    },
+    {
+      &quot;id&quot;: 2920,
+      &quot;user_id&quot;: 1875,
+      &quot;amount&quot;: 7559,
+      &quot;note&quot;: null,
+      &quot;tag_ids&quot;: [
+        5041
+      ],
+      &quot;happen_at&quot;: &quot;2022-07-14T00:00:00.000Z&quot;,
+      &quot;created_at&quot;: &quot;2022-07-16T15:31:31.452Z&quot;,
+      &quot;updated_at&quot;: &quot;2022-07-16T15:31:31.452Z&quot;,
+      &quot;kind&quot;: &quot;expenses&quot;,
+      &quot;deleted_at&quot;: null,
+      &quot;tags&quot;: [
+        {
+          &quot;id&quot;: 5041,
+          &quot;user_id&quot;: 1875,
+          &quot;name&quot;: &quot;Qui.&quot;,
+          &quot;sign&quot;: &quot;❤&quot;,
+          &quot;deleted_at&quot;: null,
+          &quot;created_at&quot;: &quot;2022-07-16T15:31:31.414Z&quot;,
+          &quot;updated_at&quot;: &quot;2022-07-16T15:31:31.414Z&quot;,
+          &quot;kind&quot;: &quot;expenses&quot;
+        }
+      ]
+    },
+    {
+      &quot;id&quot;: 2921,
+      &quot;user_id&quot;: 1875,
+      &quot;amount&quot;: 9037,
+      &quot;note&quot;: null,
+      &quot;tag_ids&quot;: [
+        5041
+      ],
+      &quot;happen_at&quot;: &quot;2022-07-14T00:00:00.000Z&quot;,
+      &quot;created_at&quot;: &quot;2022-07-16T15:31:31.454Z&quot;,
+      &quot;updated_at&quot;: &quot;2022-07-16T15:31:31.454Z&quot;,
+      &quot;kind&quot;: &quot;expenses&quot;,
+      &quot;deleted_at&quot;: null,
+      &quot;tags&quot;: [
+        {
+          &quot;id&quot;: 5041,
+          &quot;user_id&quot;: 1875,
+          &quot;name&quot;: &quot;Qui.&quot;,
+          &quot;sign&quot;: &quot;❤&quot;,
+          &quot;deleted_at&quot;: null,
+          &quot;created_at&quot;: &quot;2022-07-16T15:31:31.414Z&quot;,
+          &quot;updated_at&quot;: &quot;2022-07-16T15:31:31.414Z&quot;,
+          &quot;kind&quot;: &quot;expenses&quot;
+        }
+      ]
+    },
+    {
+      &quot;id&quot;: 2922,
+      &quot;user_id&quot;: 1875,
+      &quot;amount&quot;: 4866,
+      &quot;note&quot;: null,
+      &quot;tag_ids&quot;: [
+        5041
+      ],
+      &quot;happen_at&quot;: &quot;2022-07-15T00:00:00.000Z&quot;,
+      &quot;created_at&quot;: &quot;2022-07-16T15:31:31.457Z&quot;,
+      &quot;updated_at&quot;: &quot;2022-07-16T15:31:31.457Z&quot;,
+      &quot;kind&quot;: &quot;expenses&quot;,
+      &quot;deleted_at&quot;: null,
+      &quot;tags&quot;: [
+        {
+          &quot;id&quot;: 5041,
+          &quot;user_id&quot;: 1875,
+          &quot;name&quot;: &quot;Qui.&quot;,
+          &quot;sign&quot;: &quot;❤&quot;,
+          &quot;deleted_at&quot;: null,
+          &quot;created_at&quot;: &quot;2022-07-16T15:31:31.414Z&quot;,
+          &quot;updated_at&quot;: &quot;2022-07-16T15:31:31.414Z&quot;,
+          &quot;kind&quot;: &quot;expenses&quot;
+        }
+      ]
+    },
+    {
+      &quot;id&quot;: 2923,
+      &quot;user_id&quot;: 1875,
+      &quot;amount&quot;: 7669,
+      &quot;note&quot;: null,
+      &quot;tag_ids&quot;: [
+        5041
+      ],
+      &quot;happen_at&quot;: &quot;2022-07-16T00:00:00.000Z&quot;,
+      &quot;created_at&quot;: &quot;2022-07-16T15:31:31.459Z&quot;,
+      &quot;updated_at&quot;: &quot;2022-07-16T15:31:31.459Z&quot;,
+      &quot;kind&quot;: &quot;expenses&quot;,
+      &quot;deleted_at&quot;: null,
+      &quot;tags&quot;: [
+        {
+          &quot;id&quot;: 5041,
+          &quot;user_id&quot;: 1875,
+          &quot;name&quot;: &quot;Qui.&quot;,
+          &quot;sign&quot;: &quot;❤&quot;,
+          &quot;deleted_at&quot;: null,
+          &quot;created_at&quot;: &quot;2022-07-16T15:31:31.414Z&quot;,
+          &quot;updated_at&quot;: &quot;2022-07-16T15:31:31.414Z&quot;,
+          &quot;kind&quot;: &quot;expenses&quot;
+        }
+      ]
+    },
+    {
+      &quot;id&quot;: 2924,
+      &quot;user_id&quot;: 1875,
+      &quot;amount&quot;: 1530,
+      &quot;note&quot;: null,
+      &quot;tag_ids&quot;: [
+        5041
+      ],
+      &quot;happen_at&quot;: &quot;2022-07-14T00:00:00.000Z&quot;,
+      &quot;created_at&quot;: &quot;2022-07-16T15:31:31.461Z&quot;,
+      &quot;updated_at&quot;: &quot;2022-07-16T15:31:31.461Z&quot;,
+      &quot;kind&quot;: &quot;expenses&quot;,
+      &quot;deleted_at&quot;: null,
+      &quot;tags&quot;: [
+        {
+          &quot;id&quot;: 5041,
+          &quot;user_id&quot;: 1875,
+          &quot;name&quot;: &quot;Qui.&quot;,
+          &quot;sign&quot;: &quot;❤&quot;,
+          &quot;deleted_at&quot;: null,
+          &quot;created_at&quot;: &quot;2022-07-16T15:31:31.414Z&quot;,
+          &quot;updated_at&quot;: &quot;2022-07-16T15:31:31.414Z&quot;,
+          &quot;kind&quot;: &quot;expenses&quot;
+        }
+      ]
+    },
+    {
+      &quot;id&quot;: 2925,
+      &quot;user_id&quot;: 1875,
+      &quot;amount&quot;: 6386,
+      &quot;note&quot;: null,
+      &quot;tag_ids&quot;: [
+        5041
+      ],
+      &quot;happen_at&quot;: &quot;2022-07-15T00:00:00.000Z&quot;,
+      &quot;created_at&quot;: &quot;2022-07-16T15:31:31.462Z&quot;,
+      &quot;updated_at&quot;: &quot;2022-07-16T15:31:31.462Z&quot;,
+      &quot;kind&quot;: &quot;expenses&quot;,
+      &quot;deleted_at&quot;: null,
+      &quot;tags&quot;: [
+        {
+          &quot;id&quot;: 5041,
+          &quot;user_id&quot;: 1875,
+          &quot;name&quot;: &quot;Qui.&quot;,
+          &quot;sign&quot;: &quot;❤&quot;,
+          &quot;deleted_at&quot;: null,
+          &quot;created_at&quot;: &quot;2022-07-16T15:31:31.414Z&quot;,
+          &quot;updated_at&quot;: &quot;2022-07-16T15:31:31.414Z&quot;,
+          &quot;kind&quot;: &quot;expenses&quot;
+        }
+      ]
+    },
+    {
+      &quot;id&quot;: 2926,
+      &quot;user_id&quot;: 1875,
+      &quot;amount&quot;: 5049,
+      &quot;note&quot;: null,
+      &quot;tag_ids&quot;: [
+        5041
+      ],
+      &quot;happen_at&quot;: &quot;2022-07-15T00:00:00.000Z&quot;,
+      &quot;created_at&quot;: &quot;2022-07-16T15:31:31.464Z&quot;,
+      &quot;updated_at&quot;: &quot;2022-07-16T15:31:31.464Z&quot;,
+      &quot;kind&quot;: &quot;expenses&quot;,
+      &quot;deleted_at&quot;: null,
+      &quot;tags&quot;: [
+        {
+          &quot;id&quot;: 5041,
+          &quot;user_id&quot;: 1875,
+          &quot;name&quot;: &quot;Qui.&quot;,
+          &quot;sign&quot;: &quot;❤&quot;,
+          &quot;deleted_at&quot;: null,
+          &quot;created_at&quot;: &quot;2022-07-16T15:31:31.414Z&quot;,
+          &quot;updated_at&quot;: &quot;2022-07-16T15:31:31.414Z&quot;,
+          &quot;kind&quot;: &quot;expenses&quot;
+        }
+      ]
+    },
+    {
+      &quot;id&quot;: 2927,
+      &quot;user_id&quot;: 1875,
+      &quot;amount&quot;: 5178,
+      &quot;note&quot;: null,
+      &quot;tag_ids&quot;: [
+        5041
+      ],
+      &quot;happen_at&quot;: &quot;2022-07-16T00:00:00.000Z&quot;,
+      &quot;created_at&quot;: &quot;2022-07-16T15:31:31.466Z&quot;,
+      &quot;updated_at&quot;: &quot;2022-07-16T15:31:31.466Z&quot;,
+      &quot;kind&quot;: &quot;expenses&quot;,
+      &quot;deleted_at&quot;: null,
+      &quot;tags&quot;: [
+        {
+          &quot;id&quot;: 5041,
+          &quot;user_id&quot;: 1875,
+          &quot;name&quot;: &quot;Qui.&quot;,
+          &quot;sign&quot;: &quot;❤&quot;,
+          &quot;deleted_at&quot;: null,
+          &quot;created_at&quot;: &quot;2022-07-16T15:31:31.414Z&quot;,
+          &quot;updated_at&quot;: &quot;2022-07-16T15:31:31.414Z&quot;,
+          &quot;kind&quot;: &quot;expenses&quot;
+        }
+      ]
+    },
+    {
+      &quot;id&quot;: 2928,
+      &quot;user_id&quot;: 1875,
+      &quot;amount&quot;: 2097,
+      &quot;note&quot;: null,
+      &quot;tag_ids&quot;: [
+        5041
+      ],
+      &quot;happen_at&quot;: &quot;2022-07-15T00:00:00.000Z&quot;,
+      &quot;created_at&quot;: &quot;2022-07-16T15:31:31.468Z&quot;,
+      &quot;updated_at&quot;: &quot;2022-07-16T15:31:31.468Z&quot;,
+      &quot;kind&quot;: &quot;expenses&quot;,
+      &quot;deleted_at&quot;: null,
+      &quot;tags&quot;: [
+        {
+          &quot;id&quot;: 5041,
+          &quot;user_id&quot;: 1875,
+          &quot;name&quot;: &quot;Qui.&quot;,
+          &quot;sign&quot;: &quot;❤&quot;,
+          &quot;deleted_at&quot;: null,
+          &quot;created_at&quot;: &quot;2022-07-16T15:31:31.414Z&quot;,
+          &quot;updated_at&quot;: &quot;2022-07-16T15:31:31.414Z&quot;,
+          &quot;kind&quot;: &quot;expenses&quot;
+        }
+      ]
+    },
+    {
+      &quot;id&quot;: 2929,
+      &quot;user_id&quot;: 1875,
+      &quot;amount&quot;: 6916,
+      &quot;note&quot;: null,
+      &quot;tag_ids&quot;: [
+        5041
+      ],
+      &quot;happen_at&quot;: &quot;2022-07-14T00:00:00.000Z&quot;,
+      &quot;created_at&quot;: &quot;2022-07-16T15:31:31.470Z&quot;,
+      &quot;updated_at&quot;: &quot;2022-07-16T15:31:31.470Z&quot;,
+      &quot;kind&quot;: &quot;expenses&quot;,
+      &quot;deleted_at&quot;: null,
+      &quot;tags&quot;: [
+        {
+          &quot;id&quot;: 5041,
+          &quot;user_id&quot;: 1875,
+          &quot;name&quot;: &quot;Qui.&quot;,
+          &quot;sign&quot;: &quot;❤&quot;,
+          &quot;deleted_at&quot;: null,
+          &quot;created_at&quot;: &quot;2022-07-16T15:31:31.414Z&quot;,
+          &quot;updated_at&quot;: &quot;2022-07-16T15:31:31.414Z&quot;,
+          &quot;kind&quot;: &quot;expenses&quot;
+        }
+      ]
     }
   ],
   &quot;pager&quot;: {
     &quot;page&quot;: 1,
-    &quot;per_page&quot;: 10,
-    &quot;count&quot;: 11
+    &quot;per_page&quot;: 25,
+    &quot;count&quot;: 26
   }
 }</pre>
       </div>

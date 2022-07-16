@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>标签 API</title>
+    <title>当前用户 API</title>
     <meta charset="utf-8">
     <style>
       
@@ -106,25 +106,25 @@ table th, table td {
   </head>
   <body>
     <div class="container">
-      <h1>标签 API</h1>
+      <h1>当前用户 API</h1>
 
       <div class="article">
-        <h2>删除标签</h2>
-        <h3>DELETE /api/v1/tags/:id</h3>
+        <h2>获取当前用户</h2>
+        <h3>GET /api/v1/me</h3>
 
 
 
           <h3>Request</h3>
 
             <h4>Headers</h4>
-            <pre class="request headers">Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxODg1LCJleHAiOjE2NTc5OTI2OTF9.8iGtKsXfJlPK9BxUmSCou1-CwWMd0RH6g-DtHsXQrUA
+            <pre class="request headers">Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxODc5LCJleHAiOjE2NTc5OTI2OTF9.6c7toMKaj538pAkE7vx5i2D1oTd3Tdf3xB0GH53h_gs
 Accept: application/json
 Content-Type: application/json
 Host: example.org
 Cookie: </pre>
 
           <h4>Route</h4>
-          <pre class="request route highlight">DELETE /api/v1/tags/5077</pre>
+          <pre class="request route highlight">GET /api/v1/me</pre>
 
 
 
@@ -137,13 +137,25 @@ X-Content-Type-Options: nosniff
 X-Download-Options: noopen
 X-Permitted-Cross-Domain-Policies: none
 Referrer-Policy: strict-origin-when-cross-origin
-Content-Type: application/json
-Cache-Control: no-cache
-X-Request-Id: 6058e0dd-f89c-46ce-b490-6a81aa041130
-X-Runtime: 0.004225
-Content-Length: 0</pre>
+Content-Type: application/json; charset=utf-8
+Vary: Accept
+ETag: W/&quot;eea516deecfb54819c3c0dd56c94a9c2&quot;
+Cache-Control: max-age=0, private, must-revalidate
+X-Request-Id: a8fb2b8d-3c05-4462-93ee-e5117b4024a7
+X-Runtime: 0.002979
+Content-Length: 150</pre>
             <h4>Status</h4>
             <pre class="response status">200 OK</pre>
+              <h4>Body</h4>
+              <pre class="response body">{
+  &quot;resource&quot;: {
+    &quot;id&quot;: 1879,
+    &quot;email&quot;: &quot;joan_schuppe@larkin.net&quot;,
+    &quot;name&quot;: null,
+    &quot;created_at&quot;: &quot;2022-07-16T15:31:31.613Z&quot;,
+    &quot;updated_at&quot;: &quot;2022-07-16T15:31:31.613Z&quot;
+  }
+}</pre>
       </div>
     </div>
   </body>
