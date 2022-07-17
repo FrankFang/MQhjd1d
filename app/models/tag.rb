@@ -6,4 +6,7 @@ class Tag < ApplicationRecord
   validates :sign, presence: true
   validates :kind, presence: true
   belongs_to :user
+  def self.default_scope
+    where(deleted_at: nil)
+  end
 end
