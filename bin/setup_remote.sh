@@ -9,18 +9,18 @@ function set_env {
   hint=$2
   [[ ! -z "${!name}" ]] && return
   while [ -z "${!name}" ]; do
-    [[ ! -z "$hint" ]] && echo "> 请输入 $name: $hint" || echo "> 请输入 $name:" 
+    [[ ! -z "$hint" ]] && echo "> 请输入 $name: $hint" || echo "> 请输入 $name:"
     read $name
   done
   sed -i "1s/^/export $name=${!name}\n/" ~/.bashrc
   echo "${name} 已保存至 ~/.bashrc"
 }
 function title {
-  echo 
+  echo
   echo "###############################################################################"
   echo "## $1"
-  echo "###############################################################################" 
-  echo 
+  echo "###############################################################################"
+  echo
 }
 
 title '设置远程机器的环境变量'
@@ -60,14 +60,10 @@ docker run -d -p 3000:3000 \
            -e RAILS_MASTER_KEY=$RAILS_MASTER_KEY \
            mangosteen:$version
 
-echo
-echo "是否要更新数据库？[y/N]"
-read ans
-case $ans in
-    y|Y|1  )  echo "yes"; title '更新数据库'; docker exec $container_name bin/rails db:create db:migrate ;;
-    n|N|2  )  echo "no" ;;
-    ""     )  echo "no" ;;
-esac
+if [[ ! -z "$need_migrate" ]]; then
+  title '更新数据库'
+  docker exec $container_name bin/rails db:create db:migrate
+fi
 
 if [ "$(docker ps -aq -f name=^${nginx_container_name}$)" ]; then
   title 'doc: docker rm'
