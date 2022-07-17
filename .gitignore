@@ -31,3 +31,4 @@
 /tmp/deploy_cache/*
 
 /config/credentials/production.key
+/doc/api
