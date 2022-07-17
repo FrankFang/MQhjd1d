@@ -6,6 +6,10 @@ zh-CN:
         blank: 必填
         not_found: 找不到对应的记录
       models:
+        item:
+          attributes:
+            amount:
+              other_than: 金额不能为零
         validation_code:
           attributes:
             email:
