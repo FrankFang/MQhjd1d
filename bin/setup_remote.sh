@@ -71,10 +71,16 @@ if [ "$(docker ps -aq -f name=^${nginx_container_name}$)" ]; then
 fi
 
 title 'doc: docker run'
+cd /home/$user/deploys/$version
+mkdir ./dist
+tar xf dist.tar.gz --directory=./dist
+cd -
 docker run -d -p 8080:80 \
            --network=network1 \
            --name=$nginx_container_name \
-           -v /home/$user/deploys/$version/api:/usr/share/nginx/html:ro \
+           -v /home/$user/deploys/$version/nginx.default.conf:/etc/nginx/conf.d/default.conf \
+           -v /home/$user/deploys/$version/dist:/usr/share/nginx/html \
+           -v /home/$user/deploys/$version/api:/usr/share/nginx/html/apidoc \
            nginx:latest
 
 title '全部执行完毕'
