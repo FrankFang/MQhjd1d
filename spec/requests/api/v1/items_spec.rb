@@ -50,8 +50,9 @@ RSpec.describe "Items", type: :request do
     it "按时间筛选（边界条件2）" do
       item1 = create :item, happen_at: "2018-01-01"
       item2 = create :item, happen_at: "2017-01-01", user: item1.user
-      get "/api/v1/items?happen_after=2018-01-01",
-        headers: item1.user.generate_auth_header
+      get "/api/v1/items", params:{
+        happen_after: '2018-01-01'
+      }, headers: item1.user.generate_auth_header
       expect(response).to have_http_status 200
       json = JSON.parse(response.body)
       expect(json["resources"].size).to eq 1
@@ -101,7 +102,7 @@ RSpec.describe "Items", type: :request do
       expect(json["resource"]["id"]).to be_an(Numeric)
       expect(json["resource"]["amount"]).to eq 99
       expect(json["resource"]["user_id"]).to eq user.id
-      expect(json["resource"]["happen_at"]).to eq "2017-12-31T16:00:00.000Z"
+      expect(json["resource"]["happen_at"]).to eq "2018-01-01T00:00:00.000+08:00"
       expect(json["resource"]["kind"]).to eq "income"
     end
     it "创建时 amount、tag_ids、happen_at 必填" do
