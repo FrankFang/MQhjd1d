@@ -49,7 +49,7 @@ class Api::V1::ItemsController < ApplicationController
     items = Item
       .where(user_id: request.env["current_user_id"])
       .where(kind: params[:kind])
-      .where(happen_at: params[:happened_after]..params[:happened_before])
+      .where(happen_at: params[:happen_after]..params[:happen_before])
     tags = []
     items.each do |item|
       tags += item.tags
