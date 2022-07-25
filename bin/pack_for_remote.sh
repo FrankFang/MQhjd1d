@@ -36,7 +36,7 @@ tar -cz -f "$vendor_dir/$vendor_1.tar.gz" -C ./vendor $vendor_1
 title '打包前端代码'
 mkdir -p $frontend_dir
 rm -rf $frontend_dir/repo
-git clone git@github.com:FrankFang/0hdD9P746S2c3m5.git $frontend_dir/repo
+git clone git@jihulab.com:FrankFang/mangosteen-fe-3.git $frontend_dir/repo
 cd $frontend_dir/repo && pnpm install && pnpm run build; cd -
 tar -cz -f "$frontend_dir/dist.tar.gz" -C "$frontend_dir/repo/dist" .
 title '创建远程目录'
