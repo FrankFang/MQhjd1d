@@ -7,7 +7,7 @@
 
 Rails.application.config.middleware.insert_before 0, Rack::Cors do
   allow do
-    origins '121.196.236.94:8080'
+    origins {true} # 相当于 '*'，但比 * 更好用，因为这样写返回的是请求的域名，而不是 '*'
     resource '*',
         methods: [:get, :post, :delete, :patch, :options, :head],
         headers: :any,
