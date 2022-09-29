@@ -13,7 +13,7 @@ function set_env {
     read $name
   done
   sed -i "1s/^/export $name=${!name}\n/" ~/.bashrc
-  echo "${name} 已保存至 ~/.bashrc"
+  echo "${name} 已保存至 ~/.bashrc 。如果需要修改，请自行编辑 ~/.bashrc"
 }
 function title {
   echo
