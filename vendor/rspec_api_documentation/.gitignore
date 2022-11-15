@@ -1,0 +1,11 @@
+doc
+tmp
+.rvmrc
+.ruby-version
+.ruby-gemset
+example/docs
+example/public/docs
+*.gem
+*.swp
+/html/
+/.idea
