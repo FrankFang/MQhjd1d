@@ -20,7 +20,7 @@ rm config/credentials.yml.enc
 EDITOR="code --wait" rails credentials:edit
 ```
 
-在打开的文件中写下如下内容（其中 xxx 是密码或者随机字符串）：
+在打开的文件中写下如下内容（其中 xxx 应该是一串密码或者一串随机字符串）：
 
 ```
 secret_key_base: xxx
