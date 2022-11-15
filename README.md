@@ -10,6 +10,11 @@ docker run -d --name db-for-mangosteen -e POSTGRES_USER=mangosteen -e POSTGRES_P
 
 ### 创建密钥
 
+创建密钥分两种情况：
+
+一，如果你想保留之前创建的 `config/master.key` 和 `config/credentials.yml.enc` 两个文件，就直接把之前的文件复制到本项目的 config 里。
+二，如果你之前没有创建过 `config/master.key` 和 `config/credentials.yml.enc` 两个文件，就按下面的步骤做：
+
 ```
 rm config/credentials.yml.enc
 EDITOR="code --wait" rails credentials:edit
@@ -23,7 +28,7 @@ email_password: xxx
 hmac_secret: xxx
 ```
 
-然后提交代码。
+这样，你就得到了 `config/master.key` 和 `config/credentials.yml.enc` 两个文件。此时你应该提交代码。
 
 ### 启动应用
 
