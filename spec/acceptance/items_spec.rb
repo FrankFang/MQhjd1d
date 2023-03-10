@@ -7,21 +7,22 @@ resource "账目" do
   get "/api/v1/items" do
     authentication :basic, :auth
     parameter :page, "页码"
-    parameter :created_after, "创建时间起点（筛选条件）"
-    parameter :created_before, "创建时间终点（筛选条件）"
+    parameter :happened_after, "发生时间的起点"
+    parameter :happened_before, "发生时间的终点"
     with_options :scope => :resources do
       response_field :id, "ID"
       response_field :amount, "金额（单位：分）"
     end
-    let(:created_after) { Time.now - 10.days }
-    let(:created_before) { Time.now + 10.days }
+    let(:happened_after) { Time.now - 10.days }
+    let(:happened_before) { Time.now }
     example "获取账目" do
       tag = create :tag, user: current_user
-      create_list :item, Item.default_per_page+1, tag_ids: [tag.id], user: current_user
+      create_list :item, Item.default_per_page - 3, tag_ids: [tag.id], user: current_user, happen_at: Time.now - 15.days
+      create_list :item, 3, tag_ids: [tag.id], user: current_user, happen_at: Time.now - 5.days
       do_request
       expect(status).to eq 200
       json = JSON.parse response_body
-      expect(json["resources"].size).to eq Item.default_per_page
+      expect(json["resources"].size).to eq 3
     end
   end
 

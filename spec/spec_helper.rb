@@ -2,6 +2,29 @@ require 'rspec_api_documentation'
 
 RspecApiDocumentation.configure do |config|
   config.request_body_formatter = :json
+  config.api_name = "山竹记账 API 文档"
+  config.api_explanation = <<EOF
+  <style>
+    strong {color: #f60;}
+    code {font-family: Consolas, monospace;}
+  </style>
+  <h2>注意事项</h2>
+  <ol>
+    <li>
+      happen_after 参数全都应该重命名为 happen<strong>ed</strong>_after（happen_before 同理）
+    </li>
+    <li>
+      表单错误时，后端会返回
+        <pre><code>{
+  "errors": {
+    "field": ["中文报错"]
+  }
+}</code></pre>
+      前端可以把这个错误信息直接展示给用户
+    </li>
+  </ol>
+
+EOF
 end
 RSpec.configure do |config|
   config.before(:each) do |spec|

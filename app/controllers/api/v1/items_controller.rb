@@ -1,10 +1,13 @@
 class Api::V1::ItemsController < ApplicationController
   def index
     current_user_id = request.env["current_user_id"]
+    # 如果 params[:happen_after] 存在就用它，否则就用 params[:happened_after]
+    start_time = params[:happen_after].presence || params[:happened_after]
+    end_time = params[:happen_before].presence || params[:happened_before]
     return head :unauthorized if current_user_id.nil?
     items = Item.where(user_id: current_user_id)
       .where(
-        happen_at: (datetime_with_zone(params[:happen_after])..datetime_with_zone(params[:happen_before]))
+        happen_at: (datetime_with_zone(start_time)..datetime_with_zone(end_time))
       )
     items = items.where(kind: params[:kind]) unless params[:kind].blank?
     paged = items.page(params[:page])
