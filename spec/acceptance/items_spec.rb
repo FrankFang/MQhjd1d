@@ -107,4 +107,33 @@ resource "账目" do
       expect(json["total"]).to eq 600
     end
   end
+
+  get "/api/v1/items/balance" do
+    authentication :basic, :auth
+    parameter :happened_after, "时间起点", required: true
+    parameter :happened_before, "时间终点", required: true
+    response_field :balance, "净收入（单位：分）"
+    response_field :expenses, "支出（单位：分）"
+    response_field :income, "收入（单位：分）"
+    let(:happened_after) { "2018-01-01" }
+    let(:happened_before) { "2019-01-01" }
+    example "获取收支信息" do
+      user = current_user
+      tag = create :tag, user: user
+      create :item, amount: 100, kind: "expenses", tag_ids: [tag.id], happen_at: "2017-06-18T00:00:00+08:00", user: user
+
+      create :item, amount: 100, kind: "expenses", tag_ids: [tag.id], happen_at: "2018-06-18T00:00:00+08:00", user: user
+      create :item, amount: 100, kind: "expenses", tag_ids: [tag.id], happen_at: "2018-06-18T00:00:00+08:00", user: user
+      create :item, amount: 100, kind: "expenses", tag_ids: [tag.id], happen_at: "2018-06-18T00:00:00+08:00", user: user
+      create :item, amount: 100, kind: "expenses", tag_ids: [tag.id], happen_at: "2018-06-18T00:00:00+08:00", user: user
+      create :item, amount: 200, kind: "income", tag_ids: [tag.id], happen_at: "2018-06-18T00:00:00+08:00", user: user
+      create :item, amount: 200, kind: "income", tag_ids: [tag.id], happen_at: "2018-06-18T00:00:00+08:00", user: user
+      do_request
+      expect(status).to eq 200
+      json = JSON.parse response_body
+      expect(json["balance"]).to eq 0
+      expect(json["expenses"]).to eq 400
+      expect(json["income"]).to eq 400
+    end
+  end
 end
