@@ -1,6 +1,20 @@
 # README
 
+## 部署脚本
+
+```bash
+bin/pack_for_remote.sh
+frontend=yes need_migrate=yes bin/pack_for_remote.sh
+```
+
+其中
+
+1. frontend 表示是否需要打包和上传前端代码
+2. need_migrate 表示是否需要 migrate 数据库
+
+
 ## 开发配置
+
 
 ### 数据库创建
 

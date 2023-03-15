@@ -72,8 +72,10 @@ fi
 
 title 'doc: docker run'
 cd /home/$user/deploys/$version
-mkdir ./dist
-tar xf dist.tar.gz --directory=./dist
+if [[ -f dist.tar.gz ]]; then
+  mkdir ./dist
+  tar xf dist.tar.gz --directory=./dist
+fi
 cd -
 docker run -d -p 8080:80 \
            --network=network1 \
