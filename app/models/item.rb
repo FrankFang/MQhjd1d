@@ -1,5 +1,6 @@
 class Item < ApplicationRecord
   paginates_per 25
+  default_scope { where(deleted_at: nil).order(happen_at: :desc) }
   enum kind: { expenses: 1, income: 2 }
   validates :amount, presence: true
   validates :amount, numericality: { other_than: 0 }
@@ -22,7 +23,4 @@ class Item < ApplicationRecord
     Tag.where(id: tag_ids)
   end
 
-  def self.default_scope
-    where(deleted_at: nil)
-  end
 end
