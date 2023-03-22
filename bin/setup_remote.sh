@@ -77,12 +77,23 @@ if [[ -f dist.tar.gz ]]; then
   tar xf dist.tar.gz --directory=./dist
 fi
 cd -
-docker run -d -p 8080:80 \
+# - PUID=1000
+#       - PGID=1000
+#       - TZ=Etc/UTC
+#       - URL=yourdomain.url
+#       - VALIDATION=http
+docker run -d -p 80:80 -p 443:443\
            --network=network1 \
+           -e PUID=1000 \
+           -e PGID=1000 \
+           -e TZ=Etc/GMT-8 \
+           -e URL=mangosteen2.hunger-valley.com \
+           -e VALIDATION=http \
            --name=$nginx_container_name \
-           -v /home/$user/deploys/$version/nginx.default.conf:/etc/nginx/conf.d/default.conf \
+           -v /home/$user/deploys/$version/nginx-config:/config \
+           -v /home/$user/deploys/$version/nginx.default.conf:/config/nginx/site-confs/default \
            -v /home/$user/deploys/$version/dist:/usr/share/nginx/html \
            -v /home/$user/deploys/$version/api:/usr/share/nginx/html/apidoc \
-           nginx:latest
+           linuxserver/swag:latest
 
 title '全部执行完毕'
