@@ -87,7 +87,7 @@ docker run -d -p 80:80 -p 443:443 -p 8080:8080\
            -e VALIDATION=http \
            --name=$nginx_container_name \
            -v /home/$user/nginx-config:/config \
-           -v /home/$user/deploys/$version/nginx.default.conf:/config/nginx/site-confs/default \
+           -v /home/$user/deploys/$version/nginx.default.conf:/config/nginx/site-confs/default.conf \
            -v /home/$user/deploys/$version/dist:/usr/share/nginx/html \
            -v /home/$user/deploys/$version/api:/usr/share/nginx/html/apidoc \
            linuxserver/swag:latest
