@@ -148,16 +148,16 @@ RSpec.describe "Items", type: :request do
                                      happened_after: "2018-01-01",
                                      happened_before: "2019-01-01",
                                      kind: "expenses",
-                                     group_by: "happen_at",
+                                     group_by: "happened_at",
                                    }, headers: user.generate_auth_header
       expect(response).to have_http_status 200
       json = JSON.parse response.body
       expect(json["groups"].size).to eq 3
-      expect(json["groups"][0]["happen_at"]).to eq "2018-06-18"
+      expect(json["groups"][0]["happened_at"]).to eq "2018-06-18"
       expect(json["groups"][0]["amount"]).to eq 300
-      expect(json["groups"][1]["happen_at"]).to eq "2018-06-19"
+      expect(json["groups"][1]["happened_at"]).to eq "2018-06-19"
       expect(json["groups"][1]["amount"]).to eq 300
-      expect(json["groups"][2]["happen_at"]).to eq "2018-06-20"
+      expect(json["groups"][2]["happened_at"]).to eq "2018-06-20"
       expect(json["groups"][2]["amount"]).to eq 300
       expect(json["total"]).to eq 900
     end
