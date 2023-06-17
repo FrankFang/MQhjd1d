@@ -53,6 +53,18 @@ resource "账目" do
     end
   end
 
+  delete "/api/v1/items/:id" do
+    authentication :basic, :auth
+
+    let (:item) { create :item, user: current_user }
+    let (:id) { item.id }
+
+    example "删除账目" do
+      do_request
+      expect(status).to eq 200
+    end
+  end
+
   get "/api/v1/items/summary" do
     authentication :basic, :auth
     parameter :happened_after, "时间起点", required: true

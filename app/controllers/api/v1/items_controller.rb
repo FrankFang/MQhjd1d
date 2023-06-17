@@ -24,6 +24,16 @@ class Api::V1::ItemsController < ApplicationController
       render json: { errors: item.errors }, status: :unprocessable_entity
     end
   end
+  def destroy
+    item = Item.find params[:id]
+    return head :forbidden unless item.user_id == request.env['current_user_id']
+    item.deleted_at = Time.now
+    if item.save
+      render json: { resource: item }
+    else
+      render json: { errors: item.errors }, status: :unprocessable_entity
+    end
+  end
 
   def balance
     current_user_id = request.env["current_user_id"]
