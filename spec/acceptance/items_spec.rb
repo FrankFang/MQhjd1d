@@ -13,8 +13,8 @@ resource "账目" do
       response_field :id, "ID"
       response_field :amount, "金额（单位：分）"
     end
-    let(:happened_after) { Time.now - 10.days }
-    let(:happened_before) { Time.now }
+    let(:happened_after) { DateTime.now - 10.days }
+    let(:happened_before) { DateTime.now }
     example "获取账目" do
       tag = create :tag, user: current_user
       create_list :item, Item.default_per_page - 3, tag_ids: [tag.id], user: current_user, happen_at: Time.now - 15.days
