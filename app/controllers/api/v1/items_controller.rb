@@ -3,9 +3,7 @@ class Api::V1::ItemsController < ApplicationController
     current_user_id = request.env["current_user_id"]
     return head :unauthorized if current_user_id.nil?
     items = Item.where(user_id: current_user_id)
-      .where(
-        happened_at: (datetime_with_zone(start_time)..datetime_with_zone(end_time)),
-      )
+      .where(happened_at: start_time..end_time)
     items = items.where(kind: params[:kind]) unless params[:kind].blank?
     paged = items.page(params[:page])
     render json: { resources: paged, pager: {
@@ -24,9 +22,10 @@ class Api::V1::ItemsController < ApplicationController
       render json: { errors: item.errors }, status: :unprocessable_entity
     end
   end
+
   def destroy
     item = Item.find params[:id]
-    return head :forbidden unless item.user_id == request.env['current_user_id']
+    return head :forbidden unless item.user_id == request.env["current_user_id"]
     item.deleted_at = Time.now
     if item.save
       render json: { resource: item }
@@ -39,7 +38,7 @@ class Api::V1::ItemsController < ApplicationController
     current_user_id = request.env["current_user_id"]
     return head :unauthorized if current_user_id.nil?
     items = Item.where({ user_id: current_user_id })
-      .where({ happened_at: start_time..end_time })
+      .where(happened_at: start_time..end_time)
     income_items = []
     expenses_items = []
     items.each { |item|
@@ -98,10 +97,10 @@ class Api::V1::ItemsController < ApplicationController
 
   def start_time
     # 如果 params[:happen_after] 存在就用它，否则就用 params[:happened_after]
-    params[:happen_after].presence || params[:happened_after]
+    datetime_with_zone(params[:happen_after].presence || params[:happened_after])
   end
 
   def end_time
-    params[:happen_before].presence || params[:happened_before]
+    datetime_with_zone(params[:happen_before].presence || params[:happened_before])
   end
 end
