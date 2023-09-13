@@ -32,7 +32,7 @@ docker run -d --name db-for-mangosteen -e POSTGRES_USER=mangosteen -e POSTGRES_P
 
 ```
 rm config/credentials.yml.enc
-EDITOR="code --wait" rails credentials:edit
+EDITOR="code --wait" bin/rails credentials:edit
 ```
 
 在打开的文件中写下如下内容（其中 xxx 应该是一串密码或者一串随机字符串，如果你不知道怎么生成随机，那么你可以运行 bin/rake secret 即可）：
@@ -44,6 +44,7 @@ hmac_secret: xxx
 ```
 
 这样，你就得到了 `config/master.key` 和 `config/credentials.yml.enc` 两个文件。此时你应该提交代码。
+
 
 ### 启动应用
 
