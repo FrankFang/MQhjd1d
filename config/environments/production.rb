@@ -63,7 +63,7 @@ Rails.application.configure do
     address:              'smtp.qq.com',
     port:                 587,
     domain:               'smtp.qq.com',
-    user_name:            'fangyinghang@foxmail.com',
+    user_name:            'donotreplyme1@qq.com',
     password:             Rails.application.credentials.email_password,
     authentication:       'plain',
     enable_starttls_auto: true,
