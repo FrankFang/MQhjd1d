@@ -33,6 +33,10 @@ docker run -d --name db-for-mangosteen -e POSTGRES_USER=mangosteen -e POSTGRES_P
 ```
 rm config/credentials.yml.enc
 EDITOR="code --wait" bin/rails credentials:edit
+
+# 如果是生产环境，就用下面的代码
+rm config/credentials/production.yml.enc
+EDITOR="code --wait" bin/rails credentials:edit --environment=production
 ```
 
 在打开的文件中写下如下内容（其中 xxx 应该是一串密码或者一串随机字符串，如果你不知道怎么生成随机，那么你可以运行 bin/rake secret 即可）：
