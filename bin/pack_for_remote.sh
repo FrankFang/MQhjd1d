@@ -1,6 +1,7 @@
 # 注意修改 user 和 ip
 user=mangosteen
-ip=huaweiyun
+# ips=("huaweiyun" "aws")
+ips=("aws")
 
 time=$(date +'%Y%m%d-%H%M%S')
 cache_dir=tmp/deploy_cache
@@ -22,17 +23,23 @@ function title {
   echo
 }
 
+# Local operations
 title '运行测试用例'
 rspec || exit 1
+
 title '重新生成文档'
 bin/rails docs:generate || exit 2
+
 mkdir -p $cache_dir
+
 title '打包源代码'
 tar --exclude="tmp/cache/*" --exclude="tmp/deploy_cache/*" --exclude="vendor/*" -cz -f $dist *
+
 title "打包本地依赖 ${vendor_1}"
 bundle cache --quiet
 tar -cz -f "$vendor_dir/cache.tar.gz" -C ./vendor cache
 tar -cz -f "$vendor_dir/$vendor_1.tar.gz" -C ./vendor $vendor_1
+
 if [[ ! -z "$frontend" ]]; then
   title '打包前端代码'
   mkdir -p $frontend_dir
@@ -41,30 +48,41 @@ if [[ ! -z "$frontend" ]]; then
   cd $frontend_dir/repo && pnpm install && pnpm run build; cd -
   tar -cz -f "$frontend_dir/dist.tar.gz" -C "$frontend_dir/repo/dist" .
 fi
-title '创建远程目录'
-ssh $user@$ip "mkdir -p $deploy_dir/vendor"
-title '上传源代码和依赖'
-scp $dist $user@$ip:$deploy_dir/
-yes | rm $dist
-scp $gemfile $user@$ip:$deploy_dir/
-scp $gemfile_lock $user@$ip:$deploy_dir/
-scp -r $vendor_dir/cache.tar.gz $user@$ip:$deploy_dir/vendor/
-yes | rm $vendor_dir/cache.tar.gz
-scp -r $vendor_dir/$vendor_1.tar.gz $user@$ip:$deploy_dir/vendor/
-yes | rm $vendor_dir/$vendor_1.tar.gz
-if [[ ! -z "$frontend" ]]; then
-  title '上传前端代码'
-  scp "$frontend_dir/dist.tar.gz" $user@$ip:$deploy_dir/
-  yes | rm -rf $frontend_dir
-fi
-title '上传 Dockerfile'
-scp $current_dir/../config/host.Dockerfile $user@$ip:$deploy_dir/Dockerfile
-scp $current_dir/../config/nginx.default.conf $user@$ip:$deploy_dir/
-title '上传 setup 脚本'
-scp $current_dir/setup_remote.sh $user@$ip:$deploy_dir/
-title '上传 API 文档'
-scp -r $api_dir $user@$ip:$deploy_dir/
-title '上传版本号'
-ssh $user@$ip "echo $time > $deploy_dir/version"
-title '执行远程脚本'
-ssh $user@$ip "export version=$time; export need_migrate=$need_migrate; /bin/bash $deploy_dir/setup_remote.sh"
+
+# Remote operations for each IP
+for ip in "${ips[@]}"; do
+  title "创建远程目录 $ip"
+  ssh $user@$ip "mkdir -p $deploy_dir/vendor"
+
+  title "上传源代码和依赖到 $ip"
+  scp $dist $user@$ip:$deploy_dir/
+  yes | rm $dist
+  scp $gemfile $user@$ip:$deploy_dir/
+  scp $gemfile_lock $user@$ip:$deploy_dir/
+  scp -r $vendor_dir/cache.tar.gz $user@$ip:$deploy_dir/vendor/
+  yes | rm $vendor_dir/cache.tar.gz
+  scp -r $vendor_dir/$vendor_1.tar.gz $user@$ip:$deploy_dir/vendor/
+  yes | rm $vendor_dir/$vendor_1.tar.gz
+
+  if [[ ! -z "$frontend" ]]; then
+    title "上传前端代码到 $ip"
+    scp "$frontend_dir/dist.tar.gz" $user@$ip:$deploy_dir/
+    yes | rm -rf $frontend_dir
+  fi
+
+  title "上传 Dockerfile 到 $ip"
+  scp $current_dir/../config/host.Dockerfile $user@$ip:$deploy_dir/Dockerfile
+  scp $current_dir/../config/nginx.default.conf $user@$ip:$deploy_dir/
+
+  title "上传 setup 脚本到 $ip"
+  scp $current_dir/setup_remote.sh $user@$ip:$deploy_dir/
+
+  title "上传 API 文档到 $ip"
+  scp -r $api_dir $user@$ip:$deploy_dir/
+
+  title "上传版本号到 $ip"
+  ssh $user@$ip "echo $time > $deploy_dir/version"
+
+  title "执行远程脚本在 $ip"
+  ssh $user@$ip "export version=$time; export need_migrate=$need_migrate; /bin/bash $deploy_dir/setup_remote.sh"
+done
