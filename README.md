@@ -43,6 +43,8 @@ email_password: xxx
 hmac_secret: xxx
 ```
 
+此处的 secret_key_base 和 hmac_secret 可以使用 bin/rake secret 生成。
+
 这样，你就得到了 `config/master.key` 和 `config/credentials.yml.enc` 两个文件。此时你应该提交代码。
 
 
