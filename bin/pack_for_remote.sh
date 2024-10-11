@@ -26,12 +26,12 @@ function title {
 # Local operations
 title '运行测试用例'
 if [[ "$*" != *"--no-run-test"* ]]; then
-rspec || exit 1
+  rspec || exit 1
 fi
 
 title '重新生成文档'
 if [[ "$*" != *"--no-gen-doc"* ]]; then
-bin/rails docs:generate || exit 2
+  bin/rails docs:generate || exit 2
 fi
 
 mkdir -p $cache_dir
@@ -61,30 +61,35 @@ for ip in "${ips[@]}"; do
   title "上传源代码和依赖到 $ip"
   scp $dist $user@$ip:$deploy_dir/
   if [[ "$*" == *"--clean-up"* ]]; then
-  yes | rm $dist
+    yes | rm $dist
   fi
   scp $gemfile $user@$ip:$deploy_dir/
   scp $gemfile_lock $user@$ip:$deploy_dir/
   scp -r $vendor_dir/cache.tar.gz $user@$ip:$deploy_dir/vendor/
   if [[ "$*" == *"--clean-up"* ]]; then
-  yes | rm $vendor_dir/cache.tar.gz
+    yes | rm $vendor_dir/cache.tar.gz
   fi
   scp -r $vendor_dir/$vendor_1.tar.gz $user@$ip:$deploy_dir/vendor/
   if [[ "$*" == *"--clean-up"* ]]; then
-  yes | rm $vendor_dir/$vendor_1.tar.gz
+    yes | rm $vendor_dir/$vendor_1.tar.gz
   fi
 
   if [[ ! -z "$frontend" ]]; then
     title "上传前端代码到 $ip"
     scp "$frontend_dir/dist.tar.gz" $user@$ip:$deploy_dir/
     if [[ "$*" == *"--clean-up"* ]]; then
-    yes | rm -rf $frontend_dir
-  fi
+      yes | rm -rf $frontend_dir
+    fi
   fi
 
   title "上传 Dockerfile 到 $ip"
   scp $current_dir/../config/host.Dockerfile $user@$ip:$deploy_dir/Dockerfile
-  scp $current_dir/../config/nginx.default.conf $user@$ip:$deploy_dir/
+
+  title "上传 Caddyfile 到 $ip"
+  scp $current_dir/../config/Caddyfile $user@$ip:$deploy_dir/
+
+  title "上传 compose 文件到 $ip"
+  scp $current_dir/../config/compose.yaml $user@$ip:$deploy_dir/
 
   title "上传 setup 脚本到 $ip"
   scp $current_dir/setup_remote.sh $user@$ip:$deploy_dir/

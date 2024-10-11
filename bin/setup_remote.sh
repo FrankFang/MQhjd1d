@@ -1,7 +1,7 @@
 user=mangosteen
 root=/home/$user/deploys/$version
-container_name=mangosteen-prod-1
-nginx_container_name=mangosteen-nginx-1
+container_name=mangosteen-app-1
+caddy_container_name=mangosteen-caddy-1
 db_container_name=db-for-mangosteen
 
 function set_env {
@@ -46,7 +46,7 @@ fi
 title 'app: docker build'
 docker build $root -t mangosteen:$version
 
-if [ "$(docker ps -aq -f name=^mangosteen-prod-1$)" ]; then
+if [ "$(docker ps -aq -f name=^${container_name}$)" ]; then
   title 'app: docker rm'
   docker rm -f $container_name
 fi
@@ -65,31 +65,25 @@ if [[ ! -z "$need_migrate" ]]; then
   docker exec $container_name bin/rails db:create db:migrate
 fi
 
-if [ "$(docker ps -aq -f name=^${nginx_container_name}$)" ]; then
-  title 'doc: docker rm'
-  docker rm -f $nginx_container_name
+if [ "$(docker ps -aq -f name=^${caddy_container_name}$)" ]; then
+  title 'caddy: docker rm'
+  docker rm -f $caddy_container_name
 fi
 
-title 'doc: docker run'
+title 'caddy: static files'
 cd /home/$user/deploys/$version
 if [[ -f dist.tar.gz ]]; then
   mkdir ./dist
   tar xf dist.tar.gz --directory=./dist
 fi
+
+title 'caddy: docker run'
+
+docker compose down
+docker compose up -d
+
 cd -
 
-docker run -d -p 80:80 -p 443:443 -p 8080:8080\
-           --network=network1 \
-           -e PUID=1000 \
-           -e PGID=1000 \
-           -e TZ=Etc/GMT-8 \
-           -e URL=mangosteen.fangyinghang.com \
-           -e VALIDATION=http \
-           --name=$nginx_container_name \
-           -v /home/$user/nginx-config:/config \
-           -v /home/$user/deploys/$version/nginx.default.conf:/config/nginx/site-confs/default \
-           -v /home/$user/deploys/$version/dist:/usr/share/nginx/html \
-           -v /home/$user/deploys/$version/api:/usr/share/nginx/html/apidoc \
-           linuxserver/swag:latest
-
+title '只留下最新的三个目录'
+ls -dt /home/$user/deploys/* | tail -n +4 | xargs -r rm -rf
 title '全部执行完毕'
