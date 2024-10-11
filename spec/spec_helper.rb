@@ -1,8 +1,10 @@
 require 'rspec_api_documentation'
+require 'rails_helper'
 
 RspecApiDocumentation.configure do |config|
   config.request_body_formatter = :json
   config.api_name = "山竹记账 API 文档"
+  config.docs_dir = Rails.root.join("doc", "apidoc")
   config.api_explanation = <<EOF
   <style>
     strong {color: #f60;}
