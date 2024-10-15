@@ -102,4 +102,7 @@ docker run -d -p 80:80 -p 443:443 -p 8080:8080\
            nginx:latest \
            sh -c "rm /etc/nginx/conf.d/default.conf && exec /docker-entrypoint.sh nginx -g 'daemon off;'"
 
+title '只留下最新的三个目录'
+ls -dt /home/$user/deploys/* | tail -n +4 | xargs -r rm -rf
+
 title '全部执行完毕'
