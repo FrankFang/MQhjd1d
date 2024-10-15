@@ -43,8 +43,13 @@ else
   echo '创建成功'
 fi
 
-title 'app: docker build'
-docker build $root -t mangosteen:$version
+# 检查镜像是否存在
+if docker images --format "{{.Repository}}:{{.Tag}}" | grep -q "^mangosteen:${version}$"; then
+  echo "Image ${mangosteen}:${version} already exists. Skipping build."
+else
+  title 'app: docker build'
+  docker build $root -t mangosteen:$version
+fi
 
 if [ "$(docker ps -aq -f name=^${container_name}$)" ]; then
   title 'app: docker rm'
@@ -84,6 +89,17 @@ docker compose up -d
 
 cd -
 
-title '只留下最新的三个目录'
-ls -dt /home/$user/deploys/* | tail -n +4 | xargs -r rm -rf
+echo "NGINX_HOST: $NGINX_HOST"
+docker run -d -p 80:80 -p 443:443 -p 8080:8080\
+           --network=network1 \
+           --name=$nginx_container_name \
+           -e NGINX_HOST=${NGINX_HOST:-mangosteen.fangyinghang.com} \
+           -v nginx-log:/var/log/nginx/ \
+           -v /home/$user/deploys/$version/nginx.default.conf.template:/etc/nginx/templates/default.conf.template \
+           -v /home/$user/deploys/$version/dist:/usr/share/nginx/html \
+           -v /home/$user/deploys/$version/apidoc:/usr/share/nginx/html/apidoc \
+           -v /home/$user/.certbot/config:/certs \
+           nginx:latest \
+           sh -c "rm /etc/nginx/conf.d/default.conf && exec /docker-entrypoint.sh nginx -g 'daemon off;'"
+
 title '全部执行完毕'

@@ -5,64 +5,41 @@ server {
     listen 80 default_server;
     listen [::]:80 default_server;
 
-    location / {
-        return 301 https://$host$request_uri;
-    }
-}
-server {
-    listen 8080 default_server;
-    listen [::]:8080 default_server;
+    server_name ${NGINX_HOST};
 
-    gzip on;
-    gzip_types      text/css text/javascript application/javascript application/json image/jpeg image/png image/gif;
-    gzip_proxied    no-cache no-store private expired auth;
-    gzip_min_length 1000;
+    access_log /var/log/nginx/mangostteen_access.log;
+    error_log /var/log/nginx/mangosteen_error.log;
 
-    # enable subfolder method reverse proxy confs
-    include /config/nginx/proxy-confs/*.subfolder.conf;
-
-    location /api/ {
-        proxy_pass http://mangosteen-prod-1:3000;
-    }
 
     location / {
         root   /usr/share/nginx/html;
         index  index.html index.htm;
     }
-    location ~* .(?:css|js)$ {
-        expires 10y;
-        add_header Cache-Control "public";
-        root   /usr/share/nginx/html;
-    }
-
-    location /manifest.webmanifest {
-        types {
-          application/manifest+json  webmanifest;
-        }
-        root   /usr/share/nginx/html;
-    }
-
-    error_page   500 502 503 504  /50x.html;
-    location = /50x.html {
-        root   /usr/share/nginx/html;
-    }
 }
 
 # main server block
 server {
-    listen 443 ssl http2 default_server;
-    listen [::]:443 ssl http2 default_server;
+    listen 443 ssl default_server;
+    listen [::]:443 ssl default_server;
+    http2 on;
 
-    server_name mangosteen.fangyinghang.com;
+    access_log /var/log/nginx/mangostteen_access.log;
+    error_log /var/log/nginx/mangosteen_error.log;
+
+    server_name ${NGINX_HOST};
 
     gzip on;
     gzip_types      text/css text/javascript application/javascript application/json image/jpeg image/png image/gif;
     gzip_proxied    no-cache no-store private expired auth;
     gzip_min_length 1000;
 
-    # enable subfolder method reverse proxy confs
-    include /config/nginx/proxy-confs/*.subfolder.conf;
-    include /config/nginx/ssl.conf;
+    ssl_certificate /certs/live/${NGINX_HOST}/fullchain.pem;
+    ssl_certificate_key /certs/live/${NGINX_HOST}/privkey.pem;
+
+    # 其他SSL参数（可选，但推荐）
+    ssl_protocols TLSv1.2 TLSv1.3;
+    ssl_prefer_server_ciphers on;
+    ssl_ciphers ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:DHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384;
 
     location /api/ {
         proxy_pass http://mangosteen-prod-1:3000;
